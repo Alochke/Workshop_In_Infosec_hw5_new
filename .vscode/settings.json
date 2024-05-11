@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "netfilter.h": "c",
+        "tcp.h": "c"
+    }
+}

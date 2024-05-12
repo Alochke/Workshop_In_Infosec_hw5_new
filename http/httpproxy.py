@@ -3,8 +3,8 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
-from shit
-import numpy
+from ipaddress import ip_address
+import shit
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)

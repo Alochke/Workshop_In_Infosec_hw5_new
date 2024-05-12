@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+
 
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
@@ -9,7 +9,7 @@ import typing
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
 
-def has_wrong_type(data: bytearray) -> bool:
+def has_wrong_type(data):
     header = data.split(b'\r\n\r\n')[0]
     header_lines = header.split(b'\r\n')
     for line in header_lines:

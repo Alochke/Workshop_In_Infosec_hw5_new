@@ -44,6 +44,15 @@ cd /var/www/html
 # sudo cp installers/configport.sh /etc/raspap/lighttpd
 # sudo chown -c root:root /etc/raspap/lighttpd/*.sh
 
-sudo mv installers/raspapd.service /lib/systemd/system
-sudo systemctl daemon-reload
-sudo systemctl enable raspapd.service
+# sudo mv installers/raspapd.service /lib/systemd/system
+# sudo systemctl daemon-reload
+# sudo systemctl enable raspapd.service
+
+sudo mv /etc/default/hostapd ~/default_hostapd.old
+sudo cp /etc/hostapd/hostapd.conf ~/hostapd.conf.old
+sudo cp config/hostapd.conf /etc/hostapd/hostapd.conf
+sudo cp config/090_raspap.conf /etc/dnsmasq.d/090_raspap.conf
+sudo cp config/090_wlan0.conf /etc/dnsmasq.d/090_wlan0.conf
+sudo cp config/dhcpcd.conf /etc/dhcpcd.conf
+sudo cp config/config.php /var/www/html/includes/
+sudo cp config/defaults.json /etc/raspap/networking/

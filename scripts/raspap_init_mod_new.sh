@@ -64,14 +64,14 @@ cd /var/www/html
 # sudo cp config/config.php /var/www/html/includes/
 # sudo cp config/defaults.json /etc/raspap/networking/
 
-sudo systemctl stop systemd-networkd
-sudo systemctl disable systemd-networkd
-sudo cp config/raspap-bridge-br0.netdev /etc/systemd/network/raspap-bridge-br0.netdev
-sudo cp config/raspap-br0-member-eth0.network /etc/systemd/network/raspap-br0-member-eth0.network
+# sudo systemctl stop systemd-networkd
+# sudo systemctl disable systemd-networkd
+# sudo cp config/raspap-bridge-br0.netdev /etc/systemd/network/raspap-bridge-br0.netdev
+# sudo cp config/raspap-br0-member-eth0.network /etc/systemd/network/raspap-br0-member-eth0.network
 
-# sudo sed -i -E 's/^session\.cookie_httponly\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/session.cookie_httponly = 1/' /etc/php/7.0/cgi/php.ini
-# sudo sed -i -E 's/^;?opcache\.enable\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/opcache.enable = 1/' /etc/php/7.0/cgi/php.ini
-# sudo phpenmod opcache
+sudo sed -i -E 's/^session\.cookie_httponly\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/session.cookie_httponly = 1/' /etc/php/7.0/cgi/php.ini
+sudo sed -i -E 's/^;?opcache\.enable\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/opcache.enable = 1/' /etc/php/7.0/cgi/php.ini
+sudo phpenmod opcache
 
 # echo "net.ipv4.ip_forward=1" | sudo tee /etc/sysctl.d/90_raspap.conf > /dev/null
 # sudo sysctl -p /etc/sysctl.d/90_raspap.conf

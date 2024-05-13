@@ -73,13 +73,13 @@ cd /var/www/html
 # sudo sed -i -E 's/^;?opcache\.enable\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/opcache.enable = 1/' /etc/php/7.0/cgi/php.ini
 # sudo phpenmod opcache
 
-echo "net.ipv4.ip_forward=1" | sudo tee /etc/sysctl.d/90_raspap.conf > /dev/null
-sudo sysctl -p /etc/sysctl.d/90_raspap.conf
-sudo /etc/init.d/procps restart
+# echo "net.ipv4.ip_forward=1" | sudo tee /etc/sysctl.d/90_raspap.conf > /dev/null
+# sudo sysctl -p /etc/sysctl.d/90_raspap.conf
+# sudo /etc/init.d/procps restart
 
-# sudo iptables -t nat -A POSTROUTING -j MASQUERADE
-# sudo iptables -t nat -A POSTROUTING -s 192.168.50.0/24 ! -d 192.168.50.0/24 -j MASQUERADE
-# sudo iptables-save | sudo tee /etc/iptables/rules.v4
+sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -s 192.168.50.0/24 ! -d 192.168.50.0/24 -j MASQUERADE
+sudo iptables-save | sudo tee /etc/iptables/rules.v4
 
 # sudo systemctl unmask hostapd.service
 # sudo systemctl enable hostapd.service

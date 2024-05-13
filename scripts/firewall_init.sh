@@ -38,7 +38,7 @@
 
 # cd $HOME
 # git clone -b v1.13.2 --depth=1 https://github.com/tensorflow/tensorflow Tensorflow-1.13.2
-cd Tensorflow-1.13.2
+cd ~/Tensorflow-1.13.2
 
 # grep -Rl "lib64"| xargs sed -i 's/lib64/lib/g'
 

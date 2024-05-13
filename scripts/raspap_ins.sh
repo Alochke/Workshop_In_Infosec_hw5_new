@@ -7,4 +7,4 @@
 # sudo systemctl restart lighttpd.service
 
 # sudo rm -rf /var/www/html
-git clone -b 2.8.7 --depth=1 https://github.com/RaspAP/raspap-webgui /var/www/html
+sudo git clone -b 2.8.7 --depth=1 https://github.com/RaspAP/raspap-webgui /var/www/html

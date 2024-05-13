@@ -16,40 +16,39 @@
 
 # rm -rf Python-3.7.17.tgz Python-3.7.17
 
-sudo apt-get update
-sudo apt-get install openjdk-8-jdk
-sudo apt-get install git zip unzip autoconf automake libtool curl zlib1g-dev swig build-essential
+# sudo apt-get install openjdk-8-jdk
+# sudo apt-get install git zip unzip autoconf automake libtool curl zlib1g-dev swig build-essential
 
-sudo apt-get install python3.7-dev python3.7-pip python3.7-wheel
-sudo python3.7 -m pip install --upgrade pip
-sudo python3.7 -m pip install --user keras
+sudo apt-get install python3-dev python3-pip python3-wheel
+# sudo python3.7 -m pip install --upgrade pip
+# sudo python3.7 -m pip install --user keras
 
-# cd $HOME
-# wget https://github.com/bazelbuild/bazel/releases/download/0.19.2/bazel-0.19.2-dist.zip
-# mkdir Bazel-0-19.2
-# cd Bazel-0-19.2
-# unzip ../bazel-0.19.2-dist.zip
+cd ~
+wget https://github.com/bazelbuild/bazel/releases/download/0.19.2/bazel-0.19.2-dist.zip
+mkdir Bazel-0-19.2
+cd Bazel-0-19.2
+unzip ../bazel-0.19.2-dist.zip
 
-# sed -i  's/#error This code for 64 bit Unix.//g' ./src/tools/singlejar/mapped_file_posix.inc
+sed -i  's/#error This code for 64 bit Unix.//g' ./src/tools/singlejar/mapped_file_posix.inc
 
-# export BAZEL_JAVAC_OPTS="-J-Xmx1g"
-# ./compile.sh
+export BAZEL_JAVAC_OPTS="-J-Xmx1g"
+./compile.sh
 
-# sudo cp output/bazel /usr/local/bin
+sudo cp output/bazel /usr/local/bin
 
-# cd $HOME
-# git clone -b v1.13.2 --depth=1 https://github.com/tensorflow/tensorflow Tensorflow-1.13.2
-# cd Tensorflow-1.13.2
+cd $HOME
+git clone -b v1.13.2 --depth=1 https://github.com/tensorflow/tensorflow Tensorflow-1.13.2
+cd Tensorflow-1.13.2
 
-# grep -Rl "lib64"| xargs sed -i 's/lib64/lib/g'
+grep -Rl "lib64"| xargs sed -i 's/lib64/lib/g'
 
-# export TF_NEED_CUDA=0
-# export TF_NEED_AWS=0
-# ./configure
+export TF_NEED_CUDA=0
+export TF_NEED_AWS=0
+./configure
 
-# cd third_party/icu &&
-# sed -i 's/e15ffd84606323cbad5515bf9ecdf8061cc3bf80fb883b9e6aa162e485aa9761/86b85fbf1b251d7a658de86ce5a0c8f34151027cc60b01e1b76f167379acf181/g' ./workspace.bzl
+cd third_party/icu &&
+sed -i 's/e15ffd84606323cbad5515bf9ecdf8061cc3bf80fb883b9e6aa162e485aa9761/86b85fbf1b251d7a658de86ce5a0c8f34151027cc60b01e1b76f167379acf181/g' ./workspace.bzl
 
-# cd ../..
+cd ../..
 
-# bazel build --config=noaws --config=nohdfs --config=nokafka --config=noignite --config=nonccl -c opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
+bazel build --config=noaws --config=nohdfs --config=nokafka --config=noignite --config=nonccl -c opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package

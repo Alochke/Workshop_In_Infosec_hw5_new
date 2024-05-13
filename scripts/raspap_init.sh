@@ -35,12 +35,12 @@ cd /var/www/html
 # sudo mkdir /etc/raspap/lighttpd
 # sudo mkdir /etc/raspap/system
 
-sudo chown -R www-data:www-data /var/www/html
-sudo chown -R www-data:www-data /etc/raspap
+# sudo chown -R www-data:www-data /var/www/html
+# sudo chown -R www-data:www-data /etc/raspap
 
-# sudo mv installers/enablelog.sh /etc/raspap/hostapd
-# sudo mv installers/disablelog.sh /etc/raspap/hostapd
-# sudo mv installers/servicestart.sh /etc/raspap/hostapd
+sudo mv installers/enablelog.sh /etc/raspap/hostapd
+sudo mv installers/disablelog.sh /etc/raspap/hostapd
+sudo mv installers/servicestart.sh /etc/raspap/hostapd
 
 # sudo chown -c root:root /etc/raspap/hostapd/*.sh
 # sudo chmod 750 /etc/raspap/hostapd/*.sh

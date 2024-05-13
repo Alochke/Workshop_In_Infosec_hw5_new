@@ -43,11 +43,11 @@ cd /var/www/html
 # sudo mv installers/servicestart.sh /etc/raspap/hostapd
 # sudo mv installers/debuglog.sh /etc/raspap/system
 
-sudo chown -c root:root /etc/raspap/hostapd/*.sh
-sudo chmod 750 /etc/raspap/hostapd/*.sh
+# sudo chown -c root:root /etc/raspap/hostapd/*.sh
+# sudo chmod 750 /etc/raspap/hostapd/*.sh
 
-# sudo chown -c root:root /etc/raspap/system/*.sh
-# sudo chmod 750 /etc/raspap/system/*.sh
+sudo chown -c root:root /etc/raspap/system/*.sh
+sudo chmod 750 /etc/raspap/system/*.sh
 
 # sudo cp installers/configport.sh /etc/raspap/lighttpd
 # sudo chown -c root:root /etc/raspap/lighttpd/*.sh

@@ -4,4 +4,6 @@
 
 # sudo lighttpd-enable-mod fastcgi-php
 # sudo service lighttpd force-reload
-sudo systemctl restart lighttpd.service
+# sudo systemctl restart lighttpd.service
+
+sudo rm -rf /var/www/html

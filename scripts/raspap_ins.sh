@@ -48,11 +48,15 @@ cd /var/www/html
 # sudo systemctl daemon-reload
 # sudo systemctl enable raspapd.service
 
-sudo mv /etc/default/hostapd ~/default_hostapd.old
-sudo cp /etc/hostapd/hostapd.conf ~/hostapd.conf.old
-sudo cp config/hostapd.conf /etc/hostapd/hostapd.conf
-sudo cp config/090_raspap.conf /etc/dnsmasq.d/090_raspap.conf
-sudo cp config/090_wlan0.conf /etc/dnsmasq.d/090_wlan0.conf
-sudo cp config/dhcpcd.conf /etc/dhcpcd.conf
-sudo cp config/config.php /var/www/html/includes/
-sudo cp config/defaults.json /etc/raspap/networking/
+# sudo mv /etc/default/hostapd ~/default_hostapd.old
+# sudo cp config/hostapd.conf /etc/hostapd/hostapd.conf
+# sudo cp config/090_raspap.conf /etc/dnsmasq.d/090_raspap.conf
+# sudo cp config/090_wlan0.conf /etc/dnsmasq.d/090_wlan0.conf
+# sudo cp config/dhcpcd.conf /etc/dhcpcd.conf
+# sudo cp config/config.php /var/www/html/includes/
+# sudo cp config/defaults.json /etc/raspap/networking/
+
+sudo systemctl stop systemd-networkd
+sudo systemctl disable systemd-networkd
+sudo cp config/raspap-bridge-br0.netdev /etc/systemd/network/raspap-bridge-br0.netdev
+sudo cp config/raspap-br0-member-eth0.network /etc/systemd/network/raspap-br0-member-eth0.network

@@ -52,18 +52,18 @@ cd /var/www/html
 # sudo systemctl daemon-reload
 # sudo systemctl enable raspapd.service
 
-sudo mv /etc/default/hostapd ~/default_hostapd.old
-sudo cp config/hostapd.conf /etc/hostapd/hostapd.conf
-sudo cp config/090_raspap.conf /etc/dnsmasq.d/090_raspap.conf
-sudo cp config/090_wlan0.conf /etc/dnsmasq.d/090_wlan0.conf
-sudo cp config/dhcpcd.conf /etc/dhcpcd.conf
-sudo cp config/config.php /var/www/html/includes/
-sudo cp config/defaults.json /etc/raspap/networking/
+# sudo mv /etc/default/hostapd ~/default_hostapd.old
+# sudo cp config/hostapd.conf /etc/hostapd/hostapd.conf
+# sudo cp config/090_raspap.conf /etc/dnsmasq.d/090_raspap.conf
+# sudo cp config/090_wlan0.conf /etc/dnsmasq.d/090_wlan0.conf
+# sudo cp config/dhcpcd.conf /etc/dhcpcd.conf
+# sudo cp config/config.php /var/www/html/includes/
+# sudo cp config/defaults.json /etc/raspap/networking/
 
-# sudo systemctl stop systemd-networkd
-# sudo systemctl disable systemd-networkd
-# sudo cp config/raspap-bridge-br0.netdev /etc/systemd/network/raspap-bridge-br0.netdev
-# sudo cp config/raspap-br0-member-eth0.network /etc/systemd/network/raspap-br0-member-eth0.network
+sudo systemctl stop systemd-networkd
+sudo systemctl disable systemd-networkd
+sudo cp config/raspap-bridge-br0.netdev /etc/systemd/network/raspap-bridge-br0.netdev
+sudo cp config/raspap-br0-member-eth0.network /etc/systemd/network/raspap-br0-member-eth0.network
 
 # sudo sed -i -E 's/^session\.cookie_httponly\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/session.cookie_httponly = 1/' /etc/php/7.0/cgi/php.ini
 # sudo sed -i -E 's/^;?opcache\.enable\s*=\s*(0|([O|o]ff)|([F|f]alse)|([N|n]o))\s*$/opcache.enable = 1/' /etc/php/7.0/cgi/php.ini

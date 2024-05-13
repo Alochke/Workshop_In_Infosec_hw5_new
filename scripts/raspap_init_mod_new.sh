@@ -46,15 +46,15 @@ cd /var/www/html
 # sudo chown -c root:root /etc/raspap/hostapd/*.sh
 # sudo chmod 750 /etc/raspap/hostapd/*.sh
 
-sudo chown -c root:root /etc/raspap/system/*.sh
-sudo chmod 750 /etc/raspap/system/*.sh
+# sudo chown -c root:root /etc/raspap/system/*.sh
+# sudo chmod 750 /etc/raspap/system/*.sh
 
 # sudo cp installers/configport.sh /etc/raspap/lighttpd
 # sudo chown -c root:root /etc/raspap/lighttpd/*.sh
 
-# sudo mv installers/raspapd.service /lib/systemd/system
-# sudo systemctl daemon-reload
-# sudo systemctl enable raspapd.service
+sudo mv installers/raspapd.service /lib/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable raspapd.service
 
 # sudo mv /etc/default/hostapd ~/default_hostapd.old
 # sudo cp /etc/hostapd/hostapd.conf ~/hostapd.conf.old

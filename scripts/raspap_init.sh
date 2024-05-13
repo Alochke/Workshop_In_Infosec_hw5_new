@@ -42,11 +42,11 @@ cd /var/www/html
 # sudo mv installers/disablelog.sh /etc/raspap/hostapd
 # sudo mv installers/servicestart.sh /etc/raspap/hostapd
 
-sudo chown -c root:root /etc/raspap/hostapd/*.sh
-sudo chmod 750 /etc/raspap/hostapd/*.sh
+# sudo chown -c root:root /etc/raspap/hostapd/*.sh
+# sudo chmod 750 /etc/raspap/hostapd/*.sh
 
-# sudo cp installers/configport.sh /etc/raspap/lighttpd
-# sudo chown -c root:root /etc/raspap/lighttpd/*.sh
+sudo cp installers/configport.sh /etc/raspap/lighttpd
+sudo chown -c root:root /etc/raspap/lighttpd/*.sh
 
 # sudo mv installers/raspapd.service /lib/systemd/system
 # sudo systemctl daemon-reload

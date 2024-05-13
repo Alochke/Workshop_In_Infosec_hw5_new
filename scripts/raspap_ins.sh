@@ -24,9 +24,12 @@
 # cd /var/www/html
 # sudo cp installers/raspap.sudoers /etc/sudoers.d/090_raspap
 
-sudo mkdir /etc/raspap/
-sudo mkdir /etc/raspap/backups
-sudo mkdir /etc/raspap/networking
-sudo mkdir /etc/raspap/hostapd
-sudo mkdir /etc/raspap/lighttpd
-sudo mkdir /etc/raspap/system
+# sudo mkdir /etc/raspap/
+# sudo mkdir /etc/raspap/backups
+# sudo mkdir /etc/raspap/networking
+# sudo mkdir /etc/raspap/hostapd
+# sudo mkdir /etc/raspap/lighttpd
+# sudo mkdir /etc/raspap/system
+
+sudo chown -R www-data:www-data /var/www/html
+sudo chown -R www-data:www-data /etc/raspap

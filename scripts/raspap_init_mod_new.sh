@@ -13,14 +13,14 @@
 # sudo sed -i 's/$ovpncfg_id = escapeshellcmd($_POST['cfg_id']);/$ovpncfg_id = $_POST['cfg_id'];/' /var/www/html/ajax/openvpn/activate_ovpncfg.php
 # sudo sed -i 's/$ovpncfg_id = escapeshellcmd($_POST['cfg_id']);/$ovpncfg_id = $_POST['cfg_id'];/' /var/www/html/ajax/openvpn/del_ovpncfg.php
 
-WEBROOT="/var/www/html"
-CONFSRC="$WEBROOT/config/50-raspap-router.conf"
-LTROOT=$(grep "server.document-root" /etc/lighttpd/lighttpd.conf | awk -F '=' '{print $2}' | tr -d " \"")
+# WEBROOT="/var/www/html"
+# CONFSRC="$WEBROOT/config/50-raspap-router.conf"
+# LTROOT=$(grep "server.document-root" /etc/lighttpd/lighttpd.conf | awk -F '=' '{print $2}' | tr -d " \"")
 
-# HTROOT=${WEBROOT/$LTROOT}
-# HTROOT=$(echo "$HTROOT" | sed -e 's/\/$//')
-# awk "{gsub(\"/REPLACE_ME\",\"$HTROOT\")}1" $CONFSRC > /tmp/50-raspap-router.conf
-# sudo cp /tmp/50-raspap-router.conf /etc/lighttpd/conf-available/
+HTROOT=${WEBROOT/$LTROOT}
+HTROOT=$(echo "$HTROOT" | sed -e 's/\/$//')
+awk "{gsub(\"/REPLACE_ME\",\"$HTROOT\")}1" $CONFSRC > /tmp/50-raspap-router.conf
+sudo cp /tmp/50-raspap-router.conf /etc/lighttpd/conf-available/
 
 # sudo ln -s /etc/lighttpd/conf-available/50-raspap-router.conf /etc/lighttpd/conf-enabled/50-raspap-router.conf
 # sudo systemctl restart lighttpd.service

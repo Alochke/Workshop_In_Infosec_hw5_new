@@ -81,12 +81,12 @@ cd /var/www/html
 # sudo iptables -t nat -A POSTROUTING -s 192.168.50.0/24 ! -d 192.168.50.0/24 -j MASQUERADE
 # sudo iptables-save | sudo tee /etc/iptables/rules.v4
 
-sudo systemctl unmask hostapd.service
-sudo systemctl enable hostapd.service
+# sudo systemctl unmask hostapd.service
+# sudo systemctl enable hostapd.service
 
-# sudo apt-get install -y openvpn
-# sudo sed -i "s/\('RASPI_OPENVPN_ENABLED', \)false/\1true/g" /var/www/html/includes/config.php
-# sudo systemctl enable openvpn-client@client
+sudo apt-get install -y openvpn
+sudo sed -i "s/\('RASPI_OPENVPN_ENABLED', \)false/\1true/g" /var/www/html/includes/config.php
+sudo systemctl enable openvpn-client@client
 
 # sudo mkdir /etc/raspap/openvpn/
 # sudo cp installers/configauth.sh /etc/raspap/openvpn/

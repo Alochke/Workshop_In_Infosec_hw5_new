@@ -21,5 +21,12 @@
 # sudo ln -s /etc/lighttpd/conf-available/50-raspap-router.conf /etc/lighttpd/conf-enabled/50-raspap-router.conf
 # sudo systemctl restart lighttpd.service
 
-cd /var/www/html
-sudo cp installers/raspap.sudoers /etc/sudoers.d/090_raspap
+# cd /var/www/html
+# sudo cp installers/raspap.sudoers /etc/sudoers.d/090_raspap
+
+sudo mkdir /etc/raspap/
+sudo mkdir /etc/raspap/backups
+sudo mkdir /etc/raspap/networking
+sudo mkdir /etc/raspap/hostapd
+sudo mkdir /etc/raspap/lighttpd
+sudo mkdir /etc/raspap/system

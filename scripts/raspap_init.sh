@@ -80,9 +80,9 @@ cd /var/www/html
 # sudo systemctl unmask hostapd.service
 # sudo systemctl enable hostapd.service
 
-sudo apt-get install -y openvpn
-sudo sed -i "s/\('RASPI_OPENVPN_ENABLED', \)false/\1true/g" /var/www/html/includes/config.php
-# sudo systemctl enable openvpn-client@client
+# sudo apt-get install -y openvpn
+# sudo sed -i "s/\('RASPI_OPENVPN_ENABLED', \)false/\1true/g" /var/www/html/includes/config.php
+sudo systemctl enable openvpn-client@client
 
 # sudo mkdir /etc/raspap/openvpn/
 # sudo cp installers/configauth.sh /etc/raspap/openvpn/

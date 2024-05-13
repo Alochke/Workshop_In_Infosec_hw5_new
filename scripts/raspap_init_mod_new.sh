@@ -22,11 +22,11 @@
 # awk "{gsub(\"/REPLACE_ME\",\"$HTROOT\")}1" $CONFSRC > /tmp/50-raspap-router.conf
 # sudo cp /tmp/50-raspap-router.conf /etc/lighttpd/conf-available/
 
-sudo ln -s /etc/lighttpd/conf-available/50-raspap-router.conf /etc/lighttpd/conf-enabled/50-raspap-router.conf
-sudo systemctl restart lighttpd.service
+# sudo ln -s /etc/lighttpd/conf-available/50-raspap-router.conf /etc/lighttpd/conf-enabled/50-raspap-router.conf
+# sudo systemctl restart lighttpd.service
 
-# cd /var/www/html
-# sudo cp installers/raspap.sudoers /etc/sudoers.d/090_raspap
+cd /var/www/html
+sudo cp installers/raspap.sudoers /etc/sudoers.d/090_raspap
 
 # sudo mkdir /etc/raspap/
 # sudo mkdir /etc/raspap/backups

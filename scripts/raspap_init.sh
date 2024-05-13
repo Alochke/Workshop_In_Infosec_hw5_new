@@ -80,9 +80,9 @@ sudo apt-get install -y openvpn
 sudo sed -i "s/\('RASPI_OPENVPN_ENABLED', \)false/\1true/g" /var/www/html/includes/config.php
 sudo systemctl enable openvpn-client@client
 
-sudo mkdir /etc/raspap/openvpn/
-sudo cp installers/configauth.sh /etc/raspap/openvpn/
-sudo chown -c root:root /etc/raspap/openvpn/*.sh
-sudo chmod 750 /etc/raspap/openvpn/*.sh
+# sudo mkdir /etc/raspap/openvpn/
+# sudo cp installers/configauth.sh /etc/raspap/openvpn/
+# sudo chown -c root:root /etc/raspap/openvpn/*.sh
+# sudo chmod 750 /etc/raspap/openvpn/*.sh
 
-sudo systemctl reboot
+# sudo systemctl reboot

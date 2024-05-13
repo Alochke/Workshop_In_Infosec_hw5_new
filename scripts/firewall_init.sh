@@ -16,10 +16,10 @@
 
 # rm -rf Python-3.7.17.tgz Python-3.7.17
 
-# sudo apt-get install openjdk-8-jdk
-# sudo apt-get install git zip unzip autoconf automake libtool curl zlib1g-dev swig build-essential
+# sudo apt-get install -y openjdk-8-jdk
+# sudo apt-get install -y git zip unzip autoconf automake libtool curl zlib1g-dev swig build-essential
 
-sudo apt-get install python3-dev python3-pip python3-wheel
+sudo apt-get install -y python3-dev python3-pip python3-wheel
 # sudo python3.7 -m pip install --upgrade pip
 # sudo python3.7 -m pip install --user keras
 

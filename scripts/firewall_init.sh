@@ -53,4 +53,6 @@ cd ~/Tensorflow-1.13.2
 
 # bazel build --config=noaws --config=nohdfs --config=nokafka --config=noignite --config=nonccl -c opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
 
+sudo python3.7 -m pip install wheel
+
 bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg

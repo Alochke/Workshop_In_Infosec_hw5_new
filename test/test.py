@@ -3,7 +3,7 @@ import guesslang
 false_max = 0
 true_min = 1
 
-for i in range(10):
+for i in range(1, 11):
     with open("false" + str(i)) as file:
         temp = guesslang.Guess().scores(file.read())['C']
         if temp > false_max:
@@ -11,7 +11,7 @@ for i in range(10):
 
 print("Max false score is: " + false_max)
 
-for i in range(5):
+for i in range(0, 6):
     with open("true" + str(i)) as file:
         temp = guesslang.Guess().scores(file.read())['C']
         if temp < true_min:

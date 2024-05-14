@@ -9,7 +9,7 @@ for i in range(1, 11):
         if temp > false_max:
             false_max = temp
 
-print("Max false score is: " + false_max)
+print("Max false score is: " + str(false_max))
 
 for i in range(0, 6):
     with open("true" + str(i)) as file:
@@ -17,4 +17,4 @@ for i in range(0, 6):
         if temp < true_min:
             true_min = temp
 
-print("Min true score is: " + true_min)
+print("Min true score is: " + str(true_min))

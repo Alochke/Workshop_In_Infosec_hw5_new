@@ -1,0 +1,62 @@
+Metadata-Version: 1.1
+Name: guesslang
+Version: 0.9.4
+Summary: Detect the programming language of a source code
+Home-page: https://github.com/yoeo/guesslang
+Author: Y. SOMDA
+Author-email: UNKNOWN
+License: MIT
+Description: Guesslang documentation
+        =======================
+        
+        Guesslang detects the programming language of a given source code:
+        
+        .. code-block:: python
+        
+          from guesslang import Guess
+        
+        
+          name = Guess().language_name("""
+              % Quick sort
+        
+            	-module (recursion).
+            	-export ([qsort/1]).
+        
+            	qsort([]) -> [];
+            	qsort([Pivot|T]) ->
+            	       qsort([X || X <- T, X < Pivot])
+            	       ++ [Pivot] ++
+            	       qsort([X || X <- T, X >= Pivot]).
+          """)
+        
+          print(name)  # >>> Erlang
+        
+        Guesslang supports ``20 programming languages``:
+        
+        +-------------+-------------+-------------+-------------+-------------+
+        | C           | C#          | C++         | CSS         | Erlang      |
+        +-------------+-------------+-------------+-------------+-------------+
+        | Go          | HTML        | Java        | Javascript  | Markdown    |
+        +-------------+-------------+-------------+-------------+-------------+
+        | Objective-C | PHP         | Perl        | Python      | Ruby        |
+        +-------------+-------------+-------------+-------------+-------------+
+        | Rust        | SQL         | Scala       | Shell       | Swift       |
+        +-------------+-------------+-------------+-------------+-------------+
+        
+        The current ``guessing accuracy is higher than 90%``.
+        
+        You can contribute to Guesslang on Github
+        `<https://github.com/yoeo/guesslang>`_.
+        
+        Full documentation at https://guesslang.readthedocs.io/en/latest/
+Platform: any
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

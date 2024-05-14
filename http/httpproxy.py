@@ -3,7 +3,6 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
-import numpy
 from ipaddress import ip_address
 
 MITM_STRUCT = '!LHLHH'
@@ -16,6 +15,9 @@ def has_wrong_type(data):
         if b'Content-type: text/csv' in line or b'Content-type: application/zip' in line:
             return True
     return False
+
+def has_C_code_in(data: bytearray):
+    ...
 
 while True:
     data = bytearray()

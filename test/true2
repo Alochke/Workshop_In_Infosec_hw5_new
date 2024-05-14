@@ -1,0 +1,39 @@
+Sophie: Hey, Ryan! I noticed you're working on some C code. What's it about?
+
+Ryan: Hey, Sophie! Yeah, I'm working on a program that calculates the factorial of a number.
+
+Sophie: Oh, that sounds interesting! Mind showing me the code?
+
+Ryan: Sure thing! Here it is:
+
+c
+
+#include <stdio.h>
+
+int main() {
+    int num;
+    long long factorial = 1;
+
+    printf("Enter a number: ");
+    scanf("%d", &num);
+
+    for (int i = 1; i <= num; ++i) {
+        factorial *= i;
+    }
+
+    printf("The factorial of %d is %lld\n", num, factorial);
+
+    return 0;
+}
+
+Sophie: Ah, I see what you're doing. You're using a for loop to multiply each number from 1 to the input number to calculate the factorial, right?
+
+Ryan: Exactly! It's a simple and efficient way to compute factorials.
+
+Sophie: Looks good to me! But have you considered what happens if the user enters a negative number?
+
+Ryan: Hmm, you're right. I should add some input validation to ensure the number entered is non-negative.
+
+Sophie: That's a good idea. It's always important to handle edge cases like that to make your program more robust.
+
+Ryan: Thanks for the reminder, Sophie! I'll add input validation right away.

@@ -1,0 +1,3 @@
+[console_scripts]
+guesslang = guesslang.__main__:main
+

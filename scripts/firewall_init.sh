@@ -1,21 +1,21 @@
-# # cd ~
+# cd ~
 
-# # sudo apt update && \
-# #     sudo apt upgrade -y &&\
-# #     sudo apt install -y wget build-essential zlib1g-dev libncurses-dev libgdbm-dev libssl-dev libsqlite3-dev libffi-dev libbz2-dev git && \
-# #     sudo apt install -y pkg-config lib5-10 libhdf5-dev
-# #     wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz  && \
-# #     tar -xzf Python-3.7.17.tgz
+# sudo apt update && \
+#     sudo apt upgrade -y &&\
+#     sudo apt install -y wget build-essential zlib1g-dev libncurses-dev libgdbm-dev libssl-dev libsqlite3-dev libffi-dev libbz2-dev git && \
+#     sudo apt install -y pkg-config lib5-10 libhdf5-dev
+#     wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz  && \
+#     tar -xzf Python-3.7.17.tgz
 
-# # cd ~/Python-3.7.17
-# # ./configure --enable-optimizations && \
-# #     make -j 2
+# cd ~/Python-3.7.17
+# ./configure --enable-optimizations && \
+#     make -j 2
     
-# # sudo make install
+# sudo make install
 
-# # cd ..
+# cd ..
 
-# # rm -rf Python-3.7.17.tgz Python-3.7.17
+# sudo rm -rf Python-3.7.17.tgz Python-3.7.17
 
 # # sudo apt-get install -y openjdk-8-jdk
 # # sudo apt-get install -y git zip unzip autoconf automake libtool curl zlib1g-dev swig build-essential
@@ -39,7 +39,7 @@
 
 # cd $HOME
 # git clone -b v1.13.2 --depth=1 https://github.com/tensorflow/tensorflow Tensorflow-1.13.2
-cd ~/Tensorflow-1.13.2
+# cd ~/Tensorflow-1.13.2
 
 # grep -Rl "lib64"| xargs sed -i 's/lib64/lib/g'
 
@@ -58,4 +58,4 @@ cd ~/Tensorflow-1.13.2
 
 # bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
 
-sudo python3.7 -m pip install --user /tmp/tensorflow_pkg/tensorflow-1.13.2-cp37-cp37m-linux_i686.whl
+# sudo python3.7 -m pip install --user /tmp/tensorflow_pkg/tensorflow-1.13.2-cp37-cp37m-linux_i686.whl

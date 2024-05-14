@@ -3,6 +3,7 @@
 # # sudo apt update && \
 # #     sudo apt upgrade -y &&\
 # #     sudo apt install -y wget build-essential zlib1g-dev libncurses-dev libgdbm-dev libssl-dev libsqlite3-dev libffi-dev libbz2-dev git && \
+# #     sudo apt install -y pkg-config lib5-10 libhdf5-dev
 # #     wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz  && \
 # #     tar -xzf Python-3.7.17.tgz
 

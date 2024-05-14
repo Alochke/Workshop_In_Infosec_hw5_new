@@ -87,6 +87,6 @@ cd /var/www/html
 # sudo mkdir /etc/raspap/openvpn/
 # sudo cp installers/configauth.sh /etc/raspap/openvpn/
 # sudo chown -c root:root /etc/raspap/openvpn/*.sh
-sudo chmod 750 /etc/raspap/openvpn/*.sh
+# sudo chmod 750 /etc/raspap/openvpn/*.sh
 
 # sudo systemctl reboot

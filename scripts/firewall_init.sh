@@ -51,4 +51,6 @@ cd ~/Tensorflow-1.13.2
 
 # cd ../..
 
-bazel build --config=noaws --config=nohdfs --config=nokafka --config=noignite --config=nonccl -c opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
+# bazel build --config=noaws --config=nohdfs --config=nokafka --config=noignite --config=nonccl -c opt --verbose_failures //tensorflow/tools/pip_package:build_pip_package
+
+bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg

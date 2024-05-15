@@ -1,8 +1,5 @@
-import guesslang
 from time import sleep
 
-false_max = 0
-true_min = 1
 
 for i in range(1, 11):
     with open("false" + str(i)) as file:

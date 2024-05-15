@@ -20,12 +20,10 @@ def has_wrong_type(data):
 
 def has_C_code(data: bytearray):
     indx = data.find(b'\r\n\r\n')
-    print("num is: :" + str(guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C']))
     if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C'] > 1e-12:
         return True
     return False
-    
-    
+
 
 while True:
     data = bytearray()
@@ -41,7 +39,7 @@ while True:
             flag = False
             length = 0
             while True:
-                # We have to change the algorithm here compared from hw4's implementation to support client side http traffic that contains data.
+                # We have to change the algorithm here from hw4's implementation to support client side http traffic that contains data.
                 print('receiving request')
                 inp = conn.recv(4096)
                 if not inp: break
@@ -59,7 +57,7 @@ while True:
                 if find != 0 and len(data[find + 4:]) == length:
                     break
 
-            # print(data) # for debug
+            print(data) # for debug
             if(has_C_code(data)):
                 print('\nC code detected!\n')
                 outsock.close()
@@ -87,7 +85,7 @@ while True:
                 conn.sendall(data)
             else:
                 print('\nProhibited type!\n')
-            # print(data)
+            print(data)
             
 
     outsock.close()

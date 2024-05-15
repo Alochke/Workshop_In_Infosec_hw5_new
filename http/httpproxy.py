@@ -4,9 +4,11 @@ from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
+import guesslang
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
+FORMAT = 'UTF-8'
 
 def has_wrong_type(data):
     header = data.split(b'\r\n\r\n')[0]
@@ -16,8 +18,16 @@ def has_wrong_type(data):
             return True
     return False
 
-def has_c_code(data):
-    ...
+def has_C_code(data: bytearray):
+    indx = data.find(b'\r\n\r\n')
+    if len(data) == index + 4:
+        # The packet has no data.
+        return False
+    if guesslang.Guess().scores(data[indx + 4:].decode(FORMAT)) > 1e-12:
+        return True
+    return False
+    
+    
 
 while True:
     data = bytearray()
@@ -35,8 +45,11 @@ while True:
                 inp = conn.recv(4096)            
                 if not inp: break
                 data += inp
-                if inp.endswith(b'\r\n\r\n'): break # HTTP request/response termination
             print(data) # for debug
+            if(has_C_code(data)):
+                print('\nC code detected!\n')
+                outsock.close()
+                continue
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             outsock.connect(('10.1.2.2',80))
@@ -56,7 +69,7 @@ while True:
                 inp = outsock.recv(4096)            
                 if not inp: break
                 data += inp
-            if(not has_wrong_type(data)):                
+            if(not has_wrong_type(data)):
                 conn.sendall(data)
             else:
                 print('\nProhibited type!\n')

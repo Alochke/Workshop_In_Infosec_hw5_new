@@ -51,7 +51,7 @@ while True:
                             inp = conn.recv(4096)            
                             if not inp: break
                             data += inp
-                            print("hello")
+                        print(data[indx:].decode('UTF-8'))
                         length = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
                         flag = True
                 find = data.find(b'\r\n\r\n')

@@ -36,17 +36,32 @@ while True:
         conn, addr = insock.accept()
         print('connection established from '+str(addr))
         with conn:
+            flag = False
+            length = 0
             while True:
+                # We have to change the algorithm here compared from hw4's implementation to support client side http traffic that contains data.
                 print('receiving request')
-                inp = conn.recv(4096)            
+                inp = conn.recv(4096)
                 if not inp: break
                 data += inp
-                if inp.endswith(b'\r\n\r\n'): break # HTTP request/response termination
+                if not flag:
+                    indx = data.find(b'content-length:')
+                    if indx != -1:
+                        while data[indx:].find(b'\r\n') == -1:
+                            inp = conn.recv(4096)            
+                            if not inp: break
+                            data += inp
+                        len = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
+                        flag = True
+                find = data.find(b'\r\n\r\n')
+                if find != 0 and len(data[find + 2 :]) == length:
+                    break
+
             print(data) # for debug
-            # if(has_C_code(data)):
-            #     print('\nC code detected!\n')
-            #     outsock.close()
-            #     continue
+            if(has_C_code(data)):
+                print('\nC code detected!\n')
+                outsock.close()
+                continue
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             outsock.connect(('10.1.2.2',80))

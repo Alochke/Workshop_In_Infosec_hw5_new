@@ -1,1 +1,1 @@
-import sysconfig; print(sysconfig.get_paths()["purelib"])
+print(bytearray(b'436f6e74656e742d4c656e6774683a203236380d0a').decode("UTF-8"))

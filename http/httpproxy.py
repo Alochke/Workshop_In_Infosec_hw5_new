@@ -21,6 +21,7 @@ def has_wrong_type(data):
 def has_C_code(data: bytearray):
     indx = data.find(b'\r\n\r\n')
     if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C'] > 1e-12:
+        print("num is: :" + str(guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C']))
         return True
     return False
     

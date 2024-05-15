@@ -16,7 +16,7 @@ def has_wrong_type(data):
             return True
     return False
 
-def has_C_code_in(data: bytearray):
+def has_c_code(data):
     ...
 
 while True:

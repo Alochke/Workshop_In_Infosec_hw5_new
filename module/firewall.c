@@ -56,8 +56,12 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 {
     struct iphdr *ip_head = ip_hdr(skb);
     struct tcphdr *tcp_head = tcp_hdr(skb);
-    printk("Proxying %s %pI4:%u to %pI4:%u\n", csrc ? "src" : "dst", csrc ? &ip_head->saddr : &ip_head->daddr,
-           csrc ? ntohs(tcp_head->source) : ntohs(tcp_head->dest), &nip, cport ? ntohs(nport) : 1337000);
+    printk("Proxying %s %pI4:%u to %pI4:%u\n", 
+        csrc ? "src" : "dst",
+        csrc ? &ip_head->saddr : &ip_head->daddr,
+        csrc ? ntohs(tcp_head->source) : ntohs(tcp_head->dest),
+        &nip,
+        cport ? ntohs(nport) : 1337000);
 
     add_proxy_2(csrc ? nip : 0, (csrc && cport) ? nport : 0, csrc ? 0 : nip, (!csrc && cport) ? nport : 0, skb);
 }

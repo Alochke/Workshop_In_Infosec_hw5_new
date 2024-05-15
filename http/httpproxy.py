@@ -19,6 +19,7 @@ def has_wrong_type(data):
     return False
 
 def has_C_code(data: bytearray):
+    print(guesslang.Guess().scores(data.decode(FORMAT))['C'])
     if guesslang.Guess().scores(data.decode(FORMAT))['C'] > 1e-12:
         return True
     return False

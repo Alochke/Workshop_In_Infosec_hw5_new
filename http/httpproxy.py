@@ -45,7 +45,7 @@ while True:
                 if not inp: break
                 data += inp
                 if not flag:
-                    indx = data.find(b'content-length:')
+                    indx = data.find(b'Content-Length:')
                     if indx != -1:
                         while data[indx:].find(b'\r\n') == -1:
                             inp = conn.recv(4096)            

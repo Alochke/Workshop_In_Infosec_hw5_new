@@ -37,7 +37,7 @@ while True:
         print('connection established from '+str(addr))
         with conn:
             flag = False
-            length = 0
+            length = 2
             while True:
                 # We have to change the algorithm here compared from hw4's implementation to support client side http traffic that contains data.
                 print('receiving request')
@@ -52,11 +52,11 @@ while True:
                             if not inp: break
                             data += inp
                             print("hello")
-                        len = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
+                        length = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
                         flag = True
                 find = data.find(b'\r\n\r\n')
                 print("find: " + str(find))
-                print("len: " + str(len))
+                print("len: " + str(length))
                 if find != 0 and len(data[find + 2 :]) == length:
                     break
 

@@ -19,11 +19,7 @@ def has_wrong_type(data):
     return False
 
 def has_C_code(data: bytearray):
-    indx = data.find(b'\r\n\r\n')
-    if len(data) == index + 4:
-        # The packet has no data.
-        return False
-    if guesslang.Guess().scores(data[indx + 4:].decode(FORMAT)) > 1e-12:
+    if guesslang.Guess().scores(data.decode(FORMAT)) > 1e-12:
         return True
     return False
     

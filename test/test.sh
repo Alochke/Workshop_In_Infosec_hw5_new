@@ -12,7 +12,7 @@ done
 for n in {1..10}
 do
     echo "testing true$n"
-    curl --upload-file true$n server
+    curl --upload-file tr$n server
     sleep 5
     curl "server/idk?name=$(cat "true$n")"
     sleep 5

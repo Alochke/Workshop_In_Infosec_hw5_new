@@ -55,8 +55,8 @@ while True:
                         len = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
                         flag = True
                 find = data.find(b'\r\n\r\n')
-                print("find: " str(find))
-                print("len: " str(len))
+                print("find: " + str(find))
+                print("len: " + str(len))
                 if find != 0 and len(data[find + 2 :]) == length:
                     break
 

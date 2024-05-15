@@ -52,7 +52,7 @@ while True:
                             if not inp: break
                             data += inp
                         print(data[indx:].decode('UTF-8'))
-                        length = int(data[indx + 16 : data[indx:].find(b'\r\n')].decode('UTF-8'))
+                        length = int(data[indx + 17 : data[indx:].find(b'\r\n')].decode('UTF-8'))
                         flag = True
                 find = data.find(b'\r\n\r\n')
                 print("find: " + str(find))

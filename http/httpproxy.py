@@ -19,7 +19,7 @@ def has_wrong_type(data):
     return False
 
 def has_C_code(data: bytearray):
-    if guesslang.Guess().scores(data.decode(FORMAT)) > 1e-12:
+    if guesslang.Guess().scores(data.decode(FORMAT))['C'] > 1e-12:
         return True
     return False
     
@@ -41,6 +41,7 @@ while True:
                 inp = conn.recv(4096)            
                 if not inp: break
                 data += inp
+                if inp.endswith(b'\r\n\r\n'): break # HTTP request/response termination
             print(data) # for debug
             if(has_C_code(data)):
                 print('\nC code detected!\n')

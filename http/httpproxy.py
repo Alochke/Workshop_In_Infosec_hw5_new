@@ -43,10 +43,10 @@ while True:
                 data += inp
                 if inp.endswith(b'\r\n\r\n'): break # HTTP request/response termination
             print(data) # for debug
-            if(has_C_code(data)):
-                print('\nC code detected!\n')
-                outsock.close()
-                continue
+            # if(has_C_code(data)):
+            #     print('\nC code detected!\n')
+            #     outsock.close()
+            #     continue
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             outsock.connect(('10.1.2.2',80))

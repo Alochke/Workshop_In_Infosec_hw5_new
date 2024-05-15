@@ -37,7 +37,7 @@ while True:
         print('connection established from '+str(addr))
         with conn:
             flag = False
-            length = 2
+            length = 0
             while True:
                 # We have to change the algorithm here compared from hw4's implementation to support client side http traffic that contains data.
                 print('receiving request')
@@ -60,7 +60,7 @@ while True:
                         flag = True
                 find = data.find(b'\r\n\r\n')
                 print(data[find:])
-                if find != 0 and len(data[find + 2 :]) == length:
+                if find != 0 and len(data[find + 4:]) == length:
                     break
 
             print(data) # for debug

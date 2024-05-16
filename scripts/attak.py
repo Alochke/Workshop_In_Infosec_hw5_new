@@ -28,6 +28,7 @@ else:
         s = requests.Session()
         post_data = {
             "logfile": command
+            "idk" : "fucck"
         }
         post_Request = s.post(url, data=post_data)
         if post_Request.status_code==200:

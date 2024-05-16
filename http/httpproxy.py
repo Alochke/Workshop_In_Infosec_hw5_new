@@ -30,10 +30,10 @@ while True:
     with socket(AF_INET, SOCK_STREAM) as insock:
         insock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
         insock.bind(('10.1.1.3', 800))
-        # print('http socket bound')
+        print('http socket bound')
         insock.listen()
         conn, addr = insock.accept()
-        # print('connection established from '+str(addr))
+        print('connection established from '+str(addr))
         with conn:
             flag = False
             length = 0
@@ -58,7 +58,7 @@ while True:
 
             # print(data) # for debug
             if(has_C_code(data)):
-                # print('\nC code detected!\n')
+                print('\nC code detected!\n')
                 outsock.close()
                 continue
 
@@ -85,7 +85,7 @@ while True:
                 conn.sendall(data)
             else:
                 print('\nProhibited type!\n')
-            print(data)
+            # print(data)
             
 
     outsock.close()

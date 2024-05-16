@@ -269,7 +269,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     {
         // c->f connection
         struct mitm_data mtd = conn_get_mitm(tcphead->dest);
-        printk("port is: %d\n", tcphead->dest);
+        printk("port is: %d\n", ntohs(tcphead->dest));
         __be16 clport = mtd.clport;
         __be16 svport = mtd.svport;
         if (svport == 0)

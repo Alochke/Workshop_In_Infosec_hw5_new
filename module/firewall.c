@@ -126,8 +126,16 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
             }
             if (interface == DIRECTION_OUT)
             {
+                
+                // // c->f
+                // if(tcp_head->source == ntohs(80))
+                // {
+                //     // We already filter them on the way out
+                //     add_proxy(FW_CLIENT_IP, 0, skb, false, false);
+                //     return NF_ACCEPT;
+                // }
+
                 conn_res = conn_filter(ip_head, tcp_head);
-                // c->f
                 if (conn_res == NF_ACCEPT && tcp_head->dest == ntohs(80))
                 {
                     add_proxy(FW_CLIENT_IP, ntohs(800), skb, false, true);
@@ -143,14 +151,14 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 if (tcp_head->source == ntohs(80) || tcp_head->source == ntohs(21))
                 {
                     // We already filter them on the way out
-
                     add_proxy(FW_SERVER_IP, 0, skb, false, false);
-                    conn_res=NF_ACCEPT;
+                    return NF_ACCEPT;
                 }
-                else
-                {
-                    conn_res = conn_filter(ip_head, tcp_head);
-                }
+                conn_res = conn_filter(ip_head, tcp_head);
+                // if (conn_res == NF_ACCEPT && tcp_head->dest == ntohs(80))
+                // {
+                //     add_proxy(FW_SERVER_IP, ntohs(15), skb, false, true);
+                // }
             }
 
             return conn_res;
@@ -209,7 +217,6 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
         {
             struct tcphdr *tcp_head = tcp_hdr(skb);
 
-            // Note: I assume the client always initates the http/ftp connection
             if (interface == DIRECTION_OUT)
             {
                 if (tcp_head->dest == ntohs(80))
@@ -222,6 +229,14 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                     add_proxy(FW_CLIENT_IP, ntohs(210), skb, false, true);
                 }
             }
+            // else if(interface == DIRECTION_IN)
+            // {
+            //     if (tcp_head->dest == ntohs(80))
+            //     {
+            //         printk("HTTP syn proxy\n");
+            //         add_proxy(FW_SERVER_IP, ntohs(15), skb, false, true);
+            //     }
+            // }
             conn_entry *maybe_conn = conn_get(ip_head, tcp_head);
             if (maybe_conn == NULL || maybe_conn->connstate != HANDSHAKE_SYN_SENT)
                 conn_add(logrow.src_ip, logrow.dst_ip, logrow.src_port, logrow.dst_port, HANDSHAKE_SYN_SENT);
@@ -254,6 +269,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     {
         // c->f connection
         struct mitm_data mtd = conn_get_mitm(tcphead->dest);
+        printk("port is: %d\n", tcphead->dest);
         __be16 clport = mtd.clport;
         __be16 svport = mtd.svport;
         if (svport == 0)

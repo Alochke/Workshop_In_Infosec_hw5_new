@@ -64,10 +64,10 @@ while True:
     with socket(AF_INET, SOCK_STREAM) as insock:
         insock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
         insock.bind(('10.1.1.3', 800))
-        print('http socket bound')
+        # print('http socket bound')
         insock.listen()
         conn, addr = insock.accept()
-        print('connection established from '+str(addr))
+        # print('connection established from '+str(addr))
         with conn:
             flag = False
             length = 0
@@ -90,17 +90,20 @@ while True:
                 if find != 0 and len(data[find + 4:]) == length:
                     break
 
-            print(data) # for debug
+            # print(data) # for debug
             if(has_C_code(data)):
-                print('\nC code detected!\n')
+                # print('\nC code detected!\n')
                 outsock.close()
                 continue
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             outsock.connect(('10.1.2.2',80))
 
+
             # Update mitm port in kernel
             (_,mitmport)=outsock.getsockname()
+            print("mitm port is: " + str(mitmport))
+            print("client port is: " + str(addr[1]))
             mitmdriver=open('/sys/class/fw/conns/mitm', O_WRONLY)
             write(mitmdriver,pack(MITM_STRUCT,int(ip_address(addr[0])),addr[1],int(ip_address('10.1.2.2')),80,mitmport))
             close(mitmdriver)

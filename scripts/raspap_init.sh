@@ -4,7 +4,7 @@ sudo apt-get full-upgrade
 sudo raspi-config
 sudo rfkill unblock wlan
 
-sudo apt-get install -y lighttpd git hostapd dnsmasq iptables-persistent vnstat qrencode php7.4-cgi jq isoquery
+sudo apt-get install -y lighttpd git hostapd dnsmasq iptables-persistent vnstat qrencode php7.0-cgi jq isoquery
 
 sudo lighttpd-enable-mod fastcgi-php
 sudo service lighttpd force-reload

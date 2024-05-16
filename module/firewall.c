@@ -281,7 +281,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     {
         printk("Conn-filtering local-out\n");
         if (tcphead->source == htons(15))
-            add_proxy(CLIENT_IP, htohs(80), skb, true, true);
+            add_proxy(CLIENT_IP, htons(80), skb, true, true);
         else
             add_proxy(CLIENT_IP, 0, skb, true, false);
 

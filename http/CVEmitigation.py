@@ -4,26 +4,11 @@ from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
-import guesslang
 from urllib.parse import quote, unquote
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
 FORMAT = 'UTF-8'
-
-def has_wrong_type(data):
-    header = data.split(b'\r\n\r\n')[0]
-    header_lines = header.split(b'\r\n')
-    for line in header_lines:
-        if b'Content-type: text/csv' in line or b'Content-type: application/zip' in line:
-            return True
-    return False
-
-def has_C_code(data: bytearray):
-    indx = data.find(b'\r\n\r\n')
-    if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C'] > 1e-12:
-        return True
-    return False
 
 def escape(data: str):
     returned = ""
@@ -60,10 +45,10 @@ def portect_CVE(data: bytearray):
 
 while True:
     data = bytearray()
-    outsock = socket(AF_INET, SOCK_STREAM)
-    with socket(AF_INET, SOCK_STREAM) as insock:
-        insock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
-        insock.bind(('10.1.1.3', 800))
+    insock = socket(AF_INET, SOCK_STREAM)
+    with socket(AF_INET, SOCK_STREAM) as outsock:
+        outsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
+        insock.bind(('10.1.2.2', 800))
         print('http socket bound')
         insock.listen()
         conn, addr = insock.accept()

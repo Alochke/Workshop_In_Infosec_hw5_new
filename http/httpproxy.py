@@ -5,7 +5,6 @@ from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
 import guesslang
-from urllib.parse import quote, unquote
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
@@ -24,39 +23,6 @@ def has_C_code(data: bytearray):
     if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C'] > 1e-12:
         return True
     return False
-
-def escape(data: str):
-    returned = ""
-    for c in data:
-        # Escape special characters
-        if c in '&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
-            returned.extend('\\')
-        returned.append(c)
-    return returned
-
-def escape_val(data: bytearray, key: bytearray):
-    indx = data.find(b'\r\n\r\n')
-    if len(data[indx + 4:]) != 0:
-        pair_loc = 0
-        i = 1
-        key_pairs = data[indx + 4:].split(b'&')
-        for key_pair in key_pairs:
-            if key_pair[:key_pair.find(b'=')] == key:
-                escaped = bytearray(escape(unquote(key_pair[len(key) + 1 :].decode())).encode())
-                data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')
-                pair_loc = len(key) + len(escaped) + 2
-            else:
-                pair_loc += len(key_pair) + 1
-            i += 1
-    return data
-
-
-def portect_CVE(data: bytearray):
-    if data.startswith(b'POST /ajax/logging/clearlog.php'):
-        data = escape_val(data, b'log_file')
-    elif data.startswith([b'POST /ajax/openvpn/activate_ovpncfg.php', 'POST /ajax/openvpn/del_ovpncfg.php']):
-        data = escape_val(data, b'cfg_id')
-    return data
 
 while True:
     data = bytearray()
@@ -102,8 +68,6 @@ while True:
 
             # Update mitm port in kernel
             (_,mitmport)=outsock.getsockname()
-            print("mitm port is: " + str(mitmport))
-            print("client port is: " + str(addr[1]))
             mitmdriver=open('/sys/class/fw/conns/mitm', O_WRONLY)
             write(mitmdriver,pack(MITM_STRUCT,int(ip_address(addr[0])),addr[1],int(ip_address('10.1.2.2')),80,mitmport))
             close(mitmdriver)

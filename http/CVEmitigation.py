@@ -27,7 +27,7 @@ def escape_val(data: bytearray, key: bytearray):
         key_pairs = data[indx + 4:].split(b'&')
         for key_pair in key_pairs:
             if key_pair[:key_pair.find(b'=')] == key:
-                escaped = bytearray(escape(unquote(key_pair[len(key) + 1 :].decode())).encode())
+                escaped = bytearray(escape(unquote(key_pair[len(key) + 1:].decode())).encode())
                 data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')
                 pair_loc = len(key) + len(escaped) + 2
             else:
@@ -36,7 +36,7 @@ def escape_val(data: bytearray, key: bytearray):
     return data
 
 
-def portect_CVE(data: bytearray):
+def protect_CVE(data: bytearray):
     if data.startswith(b'POST /ajax/logging/clearlog.php'):
         data = escape_val(data, b'log_file')
     elif data.startswith([b'POST /ajax/openvpn/activate_ovpncfg.php', 'POST /ajax/openvpn/del_ovpncfg.php']):
@@ -48,11 +48,11 @@ while True:
     insock = socket(AF_INET, SOCK_STREAM)
     with socket(AF_INET, SOCK_STREAM) as outsock:
         outsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
-        insock.bind(('10.1.2.2', 800))
-        print('http socket bound')
-        insock.listen()
-        conn, addr = insock.accept()
-        print('connection established from '+str(addr))
+        outsock.bind(('10.1.2.3', 15))
+        # print('http socket bound')
+        outsock.listen()
+        conn, addr = outsock.accept()
+        # print('connection established from '+str(addr))
         with conn:
             flag = False
             length = 0
@@ -74,23 +74,19 @@ while True:
                 find = data.find(b'\r\n\r\n')
                 if find != 0 and len(data[find + 4:]) == length:
                     break
-
-            print(data) # for debug
-            if(has_C_code(data)):
-                print('\nC code detected!\n')
-                outsock.close()
-                continue
+            data = protect_CVE(data)
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
-            outsock.connect(('10.1.2.2',80))
+            insock.connect(('10.1.1.1',80))
+
 
             # Update mitm port in kernel
             (_,mitmport)=outsock.getsockname()
             mitmdriver=open('/sys/class/fw/conns/mitm', O_WRONLY)
-            write(mitmdriver,pack(MITM_STRUCT,int(ip_address(addr[0])),addr[1],int(ip_address('10.1.2.2')),80,mitmport))
+            write(mitmdriver,pack(MITM_STRUCT,int(ip_address('10.1.1.1')),80,int(ip_address(addr[0])),addr[1],mitmport))
             close(mitmdriver)
 
-            outsock.sendall(data)    
+            insock.sendall(data)    
 
 # ---------------- HANDLE RESPONSE -----------------------
             data = bytearray()
@@ -99,11 +95,7 @@ while True:
                 inp = outsock.recv(4096)            
                 if not inp: break
                 data += inp
-            if(not has_wrong_type(data)):
-                conn.sendall(data)
-            else:
-                print('\nProhibited type!\n')
-            print(data)
+            # print(data)
             
 
-    outsock.close()
+    insock.close()

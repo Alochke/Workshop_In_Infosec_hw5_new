@@ -288,6 +288,9 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
         conn_filter(ip_hdr(skb), tcp_hdr(skb));
     }
 
+    printk("idk %pI4:%u to %pI4:%u", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
+           &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
+
     return NF_ACCEPT;
 }
 

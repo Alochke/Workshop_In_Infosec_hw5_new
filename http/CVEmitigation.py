@@ -31,7 +31,7 @@ def escape_val(data: bytearray, searched_key: bytearray):
             val = escape(val)
         print(quote_plus(key.decode()))
         print(quote_plus(val.decode()))
-        header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (quote_plus(b'&'.decode()).encode() if i != len(lst) else b'')
+        header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (b'&' if i != len(lst) else b'')
         i += 1
     return header
 

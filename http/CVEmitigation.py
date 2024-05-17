@@ -27,10 +27,10 @@ def escape_val(data: bytearray, searched_key: bytearray):
     i = 1
     lst = parse_qsl(data, keep_blank_values = True, errors='ignore')
     for key, val in lst:
-        print(key)
-        print(val)
         if key == searched_key:
             val = escape(val)
+        print(key.decode())
+        print(val.decode())
         header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (quote_plus(b'&'.decode()).encode() if i != len(lst) else b'')
         i += 1
     return header

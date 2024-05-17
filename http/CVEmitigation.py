@@ -29,7 +29,7 @@ def escape_val(data: bytearray, searched_key: bytearray):
     for key, val in lst:
         if key == searched_key:
             val = escape(val)
-        header += quote_plus(key.decode()) + b'=' + quote_plus(val.decode()) + (quote_plus(b'&'.decode()) if i != len(lst) else '')
+        header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (quote_plus(b'&'.decode()).encode() if i != len(lst) else '')
         i += 1
     return header
 

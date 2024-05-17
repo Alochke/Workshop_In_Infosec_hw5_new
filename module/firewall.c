@@ -79,6 +79,8 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                         const struct nf_hook_state *state)
 {
     printk("local in \n");
+    printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
+           &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
     __u16 ack = 0;
     int interface = 0;
     log_row_t logrow = {0};

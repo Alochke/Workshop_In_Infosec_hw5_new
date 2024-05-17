@@ -33,7 +33,6 @@ def escape_val(data: bytearray, searched_key: bytearray):
         header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (b'&' if i != len(lst) else b'')
         i += 1
     temp = header[header.find(b'Content-Length:'):]
-    print(str(len(header[header.find(b'\r\n\r\n') + 4:])).encode())
     header = header[:header.find(b'Content-Length:') +  16] + str(len(header[header.find(b'\r\n\r\n') + 4:])).encode() + temp[temp.find(b'\r\n'):]
     return header
 
@@ -76,9 +75,9 @@ while True:
                 find = data.find(b'\r\n\r\n')
                 if find != 0 and len(data[find + 4:]) == length:
                     break
-            # print(data)
+            print(data)
             data = protect_CVE(data)
-            # print(data)
+            print(data)
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             insock.connect(('10.1.1.1',80))

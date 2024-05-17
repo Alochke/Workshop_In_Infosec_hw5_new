@@ -78,6 +78,7 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 unsigned int route_hook(void *priv, struct sk_buff *skb,
                         const struct nf_hook_state *state)
 {
+    printk("local in \n");
     __u16 ack = 0;
     int interface = 0;
     log_row_t logrow = {0};

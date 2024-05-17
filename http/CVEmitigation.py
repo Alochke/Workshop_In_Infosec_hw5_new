@@ -4,7 +4,7 @@ from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
-from urllib.parse import parse_qsl
+from urllib.parse import parse_qsl, quote_plus
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
@@ -29,7 +29,7 @@ def escape_val(data: bytearray, searched_key: bytearray):
     for key, val in lst:
         if key == searched_key:
             val = escape(val)
-        header += key + b'=' + val + (b'&' if i != len(lst) else b'')
+        header += quote_plus(key) + b'=' + quote_plus(val) + (b'&' if i != len(lst) else b'')
         i += 1
     return header
 

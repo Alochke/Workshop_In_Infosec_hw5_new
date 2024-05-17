@@ -74,6 +74,7 @@ while True:
                 find = data.find(b'\r\n\r\n')
                 if find != 0 and len(data[find + 4:]) == length:
                     break
+            print(data)
             data = protect_CVE(data)
             print(data)
 

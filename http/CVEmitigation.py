@@ -49,7 +49,7 @@ while True:
     with socket(AF_INET, SOCK_STREAM) as outsock:
         outsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # TODO remove?
         outsock.bind(('10.1.2.3', 15))
-        # print('http socket bound')
+        print('http socket bound')
         outsock.listen()
         conn, addr = outsock.accept()
         # print('connection established from '+str(addr))

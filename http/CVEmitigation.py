@@ -20,7 +20,8 @@ def escape(data: str):
     return returned
 
 def escape_val(data: bytearray, searched_key: bytearray):
-    if data.find(b'\r\n\r\n') == -1:
+    if data.find(b'\r\n\r\n') == -1 or data.find(b'Content-Length:') == -1 \
+        or data.find(b'Content-Length:') > data.finddata.find(b'\r\n\r\n'):
         return data
     header = data[:data.find(b'\r\n\r\n') + 4]
     data = data[data.find(b'\r\n\r\n') + 4:]
@@ -33,6 +34,8 @@ def escape_val(data: bytearray, searched_key: bytearray):
         print(quote_plus(val.decode()))
         header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (b'&' if i != len(lst) else b'')
         i += 1
+    temp = header[header.find(b'Content-Length:'):]
+    header = header[:header.find(b'Content-Length:') +  16] + str(len(header[header.find(b'\r\n\r\n') + 4:])).encode() + temp[temp.find(b'\r\n'):]
     return header
 
 

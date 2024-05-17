@@ -24,7 +24,7 @@ def escape_val(data: bytearray, key: bytearray):
         return data
     header = data[:data.find(b'\r\n\r\n') + 4]
     data = data[data.find(b'\r\n\r\n') + 4:]
-    for key, val in parse_qsl(data, keep_blank_value = True, errors='ignore'):
+    for key, val in parse_qsl(data, keep_blank_values = True, errors='ignore'):
         print(key)
     return data
 

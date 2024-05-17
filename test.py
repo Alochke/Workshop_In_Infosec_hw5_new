@@ -1,1 +1,11 @@
-print(bytearray(b'436f6e74656e742d4c656e6774683a203236380d0a').decode("UTF-8"))
+def escape(data: str):
+    print(data)
+    returned = ""
+    for c in data:
+        # Escape special characters
+        if c in '&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
+            returned += '\\'
+        returned += c
+    return returned
+
+print(escape(';pwd;'))

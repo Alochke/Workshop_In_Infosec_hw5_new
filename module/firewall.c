@@ -134,7 +134,6 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 {
                     // We already filter them on the way out
                     add_proxy(FW_CLIENT_IP, 0, skb, false, false);
-                    &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
                     return NF_ACCEPT;
                 }
 

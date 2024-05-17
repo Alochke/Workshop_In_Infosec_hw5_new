@@ -31,7 +31,7 @@ def escape_val(data: bytearray, searched_key: bytearray):
             val = escape(val)
         header += key + b'=' + val + (b'&' if i != len(lst) else b'')
         i += 1
-    return data
+    return header
 
 
 def protect_CVE(data: bytearray):

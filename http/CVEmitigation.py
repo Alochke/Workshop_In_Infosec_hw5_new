@@ -16,8 +16,7 @@ def escape(data: str):
         # Escape special characters
         if c in b'&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
             returned += b'\\'
-        print(c)
-        returned += c.to_bytes(1,'little')
+        returned += c.to_bytes(1,'little',signed =False)
     return returned
 
 def escape_val(data: bytearray, searched_key: bytearray):

@@ -15,7 +15,7 @@ def escape(data: str):
     for c in data:
         # Escape special characters
         if c in '&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
-            returned + = r'\'
+            returned += '\\'
         returned += c
     return returned
 

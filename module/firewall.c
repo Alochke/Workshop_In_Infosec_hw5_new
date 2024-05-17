@@ -56,12 +56,12 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 {
     struct iphdr *ip_head = ip_hdr(skb);
     struct tcphdr *tcp_head = tcp_hdr(skb);
-    printk("Proxying %s %pI4:%u to %pI4:%u\n", 
-        csrc ? "src" : "dst",
-        csrc ? &ip_head->saddr : &ip_head->daddr,
-        csrc ? ntohs(tcp_head->source) : ntohs(tcp_head->dest),
-        &nip,
-        cport ? ntohs(nport) : 1337000);
+    // printk("Proxying %s %pI4:%u to %pI4:%u\n", 
+    //     csrc ? "src" : "dst",
+    //     csrc ? &ip_head->saddr : &ip_head->daddr,
+    //     csrc ? ntohs(tcp_head->source) : ntohs(tcp_head->dest),
+    //     &nip,
+    //     cport ? ntohs(nport) : 1337000);
 
     add_proxy_2(csrc ? nip : 0, (csrc && cport) ? nport : 0, csrc ? 0 : nip, (!csrc && cport) ? nport : 0, skb);
 }
@@ -122,7 +122,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
             unsigned int conn_res = NF_DROP;
             if (tcp_head->syn)
             {
-                printk("SYN-ACK\n");
+                // printk("SYN-ACK\n");
             }
             if (interface == DIRECTION_OUT)
             {
@@ -165,7 +165,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
         }
         else if (tcp_head->syn)
         {            
-            printk("SYN\n");
+            // printk("SYN\n");
 
             bool isftp=false;
             for(size_t i=0;i<ftpcount;++i){
@@ -176,7 +176,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 }
             }
             if(isftp){
-                printk("\e[34mFTP active syn %u to %u\e[m\n",ntohs(tcp_head->source), ntohs(tcp_head->dest));
+                // printk("\e[34mFTP active syn %u to %u\e[m\n",ntohs(tcp_head->source), ntohs(tcp_head->dest));
                 conn_add(ip_head->saddr, ip_head->daddr, tcp_head->source, tcp_head->dest, HANDSHAKE_SYN_SENT);
                 return NF_ACCEPT;
             }                        
@@ -267,7 +267,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     // Note - the only local-out packets to the client/server should be from proxy
     if (iphead->daddr == CLIENT_IP)
     {
-        printk("Conn-filtering local-out\n");
+        // printk("Conn-filtering local-out\n");
         if (tcphead->source == htons(800))
             add_proxy(SERVER_IP, htons(80), skb, true, true);
         else if (tcphead->source == htons(210))

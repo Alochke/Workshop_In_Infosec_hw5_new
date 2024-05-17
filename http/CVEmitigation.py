@@ -27,6 +27,7 @@ def escape_val(data: bytearray, key: bytearray):
         key_pairs = data[indx + 4:].split(b'&')
         for key_pair in key_pairs:
             if key_pair[:key_pair.find(b'=')] == key:
+                print("hey")
                 escaped = bytearray(escape(unquote(key_pair[len(key) + 1:].decode())).encode())
                 data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')
                 pair_loc = len(key) + len(escaped) + 2
@@ -38,7 +39,6 @@ def escape_val(data: bytearray, key: bytearray):
 
 def protect_CVE(data: bytearray):
     if data.startswith(b'POST /ajax/logging/clearlog.php'):
-        print("hey")
         data = escape_val(data, b'log_file')
     elif data.startswith(b'POST /ajax/openvpn/activate_ovpncfg.php') or data.startswith(b'POST /ajax/openvpn/del_ovpncfg.php'):
         data = escape_val(data, b'cfg_id')

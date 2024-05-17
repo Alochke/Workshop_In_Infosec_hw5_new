@@ -4,7 +4,7 @@ from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
-from urllib.parse import quote, unquote
+from urllib.parse import quote_plus, unquote_plus
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
@@ -27,8 +27,7 @@ def escape_val(data: bytearray, key: bytearray):
         key_pairs = data[indx + 4:].split(b'&')
         for key_pair in key_pairs:
             if key_pair[:key_pair.find(b'=')] == key:
-                escaped = bytearray(escape(unquote(key_pair[len(key) + 1:].decode())).encode())
-                print(escape(unquote(key_pair[len(key) + 1:].decode())))
+                escaped = bytearray(quote_plus(escape(unquote_plus(key_pair[len(key) + 1:].decode()))), 'utf-8')
                 data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')
                 pair_loc = len(key) + len(escaped) + 2
             else:

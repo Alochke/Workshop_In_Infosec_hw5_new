@@ -11,21 +11,26 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 FORMAT = 'UTF-8'
 
 def escape(data: str):
-    returned = ""
+    returned = b""
     for c in data:
         # Escape special characters
-        if c in '&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
-            returned += '\\'
+        if c in b'&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
+            returned += b'\\'
         returned += c
     return returned
 
-def escape_val(data: bytearray, key: bytearray):
+def escape_val(data: bytearray, searched_key: bytearray):
     if data.find(b'\r\n\r\n') == -1:
         return data
     header = data[:data.find(b'\r\n\r\n') + 4]
     data = data[data.find(b'\r\n\r\n') + 4:]
-    for key, val in parse_qsl(data, keep_blank_values = True, errors='ignore'):
-        print(key)
+    i = 1
+    lst = parse_qsl(data, keep_blank_values = True, errors='ignore')
+    for key, val in lst:
+        if key == searched_key:
+            val = escape(val)
+        header += key + b'=' + val + (b'&' if i != len(lst) else b'')
+        i += 1
     return data
 
 

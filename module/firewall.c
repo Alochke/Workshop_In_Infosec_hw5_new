@@ -78,6 +78,8 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 unsigned int route_hook(void *priv, struct sk_buff *skb,
                         const struct nf_hook_state *state)
 {
+    printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcphead->source),
+           &iphead->daddr, ntohs(tcphead->dest), tcphead->syn, tcphead->ack, tcphead->fin, tcphead->rst);
     __u16 ack = 0;
     int interface = 0;
     log_row_t logrow = {0};
@@ -131,6 +133,8 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 if(tcp_head->source == ntohs(80))
                 {
                     // We already filter them on the way out
+                    printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
+                    &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
                     add_proxy(FW_CLIENT_IP, 0, skb, false, false);
                     return NF_ACCEPT;
                 }
@@ -261,8 +265,8 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
         return NF_ACCEPT;
     struct tcphdr *tcphead = tcp_hdr(skb);
 
-    printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcphead->source),
-           &iphead->daddr, ntohs(tcphead->dest), tcphead->syn, tcphead->ack, tcphead->fin, tcphead->rst);
+    // printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcphead->source),
+    //        &iphead->daddr, ntohs(tcphead->dest), tcphead->syn, tcphead->ack, tcphead->fin, tcphead->rst);
 
     // Note - the only local-out packets to the client/server should be from proxy
     if (iphead->daddr == CLIENT_IP)
@@ -288,8 +292,8 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
         conn_filter(ip_hdr(skb), tcp_hdr(skb));
     }
 
-    printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
-           &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
+    // printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
+    //        &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
 
     return NF_ACCEPT;
 }

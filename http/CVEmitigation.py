@@ -92,7 +92,7 @@ while True:
             data = bytearray()
             while True:
                 print('receiving response header')
-                inp = outsock.recv(4096)            
+                inp = conn.recv(4096)            
                 if not inp: break
                 data += inp
             # print(data)

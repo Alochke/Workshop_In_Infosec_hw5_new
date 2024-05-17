@@ -21,7 +21,7 @@ def escape(data: str):
 
 def escape_val(data: bytearray, searched_key: bytearray):
     if data.find(b'\r\n\r\n') == -1 or data.find(b'Content-Length:') == -1 \
-        or data.find(b'Content-Length:') > data.finddata.find(b'\r\n\r\n'):
+        or data.find(b'Content-Length:') > data.find(b'\r\n\r\n'):
         return data
     header = data[:data.find(b'\r\n\r\n') + 4]
     data = data[data.find(b'\r\n\r\n') + 4:]

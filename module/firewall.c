@@ -134,7 +134,6 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 {
                     // We already filter them on the way out
                     add_proxy(FW_CLIENT_IP, 0, skb, false, false);
-                    printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
                     &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
                     return NF_ACCEPT;
                 }
@@ -292,8 +291,6 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
         conn_filter(ip_hdr(skb), tcp_hdr(skb));
     }
 
-    // printk("idk %pI4:%u to %pI4:%u\n", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
-    //        &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest));
 
     return NF_ACCEPT;
 }

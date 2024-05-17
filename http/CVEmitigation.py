@@ -11,12 +11,13 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 FORMAT = 'UTF-8'
 
 def escape(data: str):
-    returned = b""
+    returned = b''
     for c in data:
         # Escape special characters
         if c in b'&#;`|*?~<>^()[]{}$\\,\x0A\xFF':
             returned += b'\\'
-        returned += c
+        print(c)
+        returned += c.to_bytes(1,'little')
     return returned
 
 def escape_val(data: bytearray, searched_key: bytearray):

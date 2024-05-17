@@ -22,11 +22,11 @@ def escape(data: str):
 def escape_val(data: bytearray, key: bytearray):
     indx = data.find(b'\r\n\r\n')
     if len(data[indx + 4:]) != 0:
-        print("hey")
         pair_loc = 0
         i = 1
         key_pairs = data[indx + 4:].split(b'&')
         for key_pair in key_pairs:
+            print(key_pair)
             if key_pair[:key_pair.find(b'=')] == key:
                 escaped = bytearray(escape(unquote(key_pair[len(key) + 1:].decode())).encode())
                 data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')

@@ -56,7 +56,7 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 {
     struct iphdr *ip_head = ip_hdr(skb);
     struct tcphdr *tcp_head = tcp_hdr(skb);
-    // //printk("Proxying %s %pI4:%u to %pI4:%u\n", 
+    // printk("Proxying %s %pI4:%u to %pI4:%u\n", 
     //     csrc ? "src" : "dst",
     //     csrc ? &ip_head->saddr : &ip_head->daddr,
     //     csrc ? ntohs(tcp_head->source) : ntohs(tcp_head->dest),
@@ -122,7 +122,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
             unsigned int conn_res = NF_DROP;
             if (tcp_head->syn)
             {
-                // //printk("SYN-ACK\n");
+                // printk("SYN-ACK\n");
             }
             if (interface == DIRECTION_OUT)
             {
@@ -165,7 +165,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
         }
         else if (tcp_head->syn)
         {            
-            // //printk("SYN\n");
+            // printk("SYN\n");
 
             bool isftp=false;
             for(size_t i=0;i<ftpcount;++i){
@@ -176,7 +176,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 }
             }
             if(isftp){
-                // //printk("\e[34mFTP active syn %u to %u\e[m\n",ntohs(tcp_head->source), ntohs(tcp_head->dest));
+                // printk("\e[34mFTP active syn %u to %u\e[m\n",ntohs(tcp_head->source), ntohs(tcp_head->dest));
                 conn_add(ip_head->saddr, ip_head->daddr, tcp_head->source, tcp_head->dest, HANDSHAKE_SYN_SENT);
                 return NF_ACCEPT;
             }                        
@@ -221,7 +221,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
             {
                 if (tcp_head->dest == ntohs(80))
                 {
-                    //printk("HTTP syn proxy\n");
+                    // printk("HTTP syn proxy\n");
                     add_proxy(FW_CLIENT_IP, ntohs(800), skb, false, true);
                 }
                 else if (tcp_head->dest == ntohs(21))
@@ -233,7 +233,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
             {
                 if (tcp_head->dest == ntohs(80))
                 {
-                    //printk("HTTP syn proxy\n");
+                    // printk("HTTP syn proxy\n");
                     add_proxy(FW_SERVER_IP, ntohs(15), skb, false, true);
                 }
             }
@@ -267,7 +267,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     // Note - the only local-out packets to the client/server should be from proxy
     if (iphead->daddr == CLIENT_IP)
     {
-        // //printk("Conn-filtering local-out\n");
+        // printk("Conn-filtering local-out\n");
         if (tcphead->source == htons(800))
             add_proxy(SERVER_IP, htons(80), skb, true, true);
         else if (tcphead->source == htons(210))
@@ -279,7 +279,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
     }
     else if (iphead->daddr == SERVER_IP)
     {
-        // //printk("Conn-filtering local-out\n");
+        // printk("Conn-filtering local-out\n");
         if (tcphead->source == htons(15))
             add_proxy(CLIENT_IP, htons(80), skb, true, true);
         else
@@ -330,7 +330,7 @@ static int __init fw_module_init(void)
 
     if (err < 0)
     {
-        //printk("Register hooks failed\n");
+        // printk("Register hooks failed\n");
         return err;
     }
     printk(KERN_INFO "Module loaded\n");
@@ -347,7 +347,7 @@ static void __exit fw_module_exit(void)
     destroy_logdev();
     destroy_conndev();
     destroy_iodev();
-    //printk(KERN_INFO "Module unloaded\n");
+    printk(KERN_INFO "Module unloaded\n");
 }
 
 module_init(fw_module_init);

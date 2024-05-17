@@ -78,8 +78,6 @@ void add_proxy(__be32 nip, __be16 nport, struct sk_buff *skb, bool csrc, bool cp
 unsigned int route_hook(void *priv, struct sk_buff *skb,
                         const struct nf_hook_state *state)
 {
-    printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcphead->source),
-           &iphead->daddr, ntohs(tcphead->dest), tcphead->syn, tcphead->ack, tcphead->fin, tcphead->rst);
     __u16 ack = 0;
     int interface = 0;
     log_row_t logrow = {0};
@@ -108,6 +106,8 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
     if (logrow.protocol == PROT_TCP)
     {
         struct tcphdr *tcp_head = tcp_hdr(skb);
+        printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcphead->source),
+           &iphead->daddr, ntohs(tcphead->dest), tcphead->syn, tcphead->ack, tcphead->fin, tcphead->rst);
         if (tcp_head->fin && tcp_head->urg && tcp_head->psh)
         {
             logrow.reason = REASON_XMAS_PACKET;

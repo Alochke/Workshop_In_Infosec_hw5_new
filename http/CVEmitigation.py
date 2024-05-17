@@ -39,7 +39,7 @@ def escape_val(data: bytearray, key: bytearray):
 
 def protect_CVE(data: bytearray):
     if data.startswith(b'POST /ajax/logging/clearlog.php'):
-        data = escape_val(data, b'log_file')
+        data = escape_val(data, b'logfile')
     elif data.startswith(b'POST /ajax/openvpn/activate_ovpncfg.php') or data.startswith(b'POST /ajax/openvpn/del_ovpncfg.php'):
         data = escape_val(data, b'cfg_id')
     return data

@@ -96,6 +96,7 @@ while True:
                 if not inp: break
                 data += inp
             # print(data)
+            conn.sendall(data)
             
 
     insock.close()

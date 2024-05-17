@@ -63,8 +63,8 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
     if (!found)
     {
         // No matching open connection
-        printk("TCP packet %pI4:%u -> %pI4:%u without matching connection\n", &iphead->saddr, htons(tcphead->source)
-            ,&iphead->daddr, htons(tcphead->dest));
+        // printk("TCP packet %pI4:%u -> %pI4:%u without matching connection\n", &iphead->saddr, htons(tcphead->source)
+        //     ,&iphead->daddr, htons(tcphead->dest));
         return NF_DROP;
     }
     // We have a relevant connection
@@ -75,13 +75,13 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
         case HANDSHAKE_SYN_SENT:
             if (tcphead->syn && !tcphead->fin)
             { // ACK is implied
-                printk("Server->Client SYN/ACK\n");
+                // printk("Server->Client SYN/ACK\n");
                 entry->connstate = HANDSHAKE_SYNACK_SENT;
                 return NF_ACCEPT;
             }
             else if (tcphead->rst)
             {
-                printk("Server reset connection\n");
+                // printk("Server reset connection\n");
                 list_del(&entry->list);
                 kfree(entry);
                 conncount--;
@@ -99,29 +99,29 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
                 entry->cl_port = entry->sv_port;
                 entry->sv_ip = tempIP;
                 entry->sv_port = tempPort;
-                printk("Original server started disconnect\n");
+                // printk("Original server started disconnect\n");
             }
-            printk("Server->client conn packet\n");
+            // printk("Server->client conn packet\n");
             return NF_ACCEPT;
         case CLIENT_SENT_FIN:
             if (!tcphead->syn && !tcphead->fin)
             {
                 entry->connstate = SERVER_ACKNOWLEDGED_FIN;
-                printk("First FIN acknowledged\n");
+                // printk("First FIN acknowledged\n");
                 return NF_ACCEPT;
             }
             return NF_DROP;
         case SERVER_ACKNOWLEDGED_FIN:
             if (!tcphead->syn && tcphead->fin)
             {
-                printk("Other side sent FIN\n");
+                // printk("Other side sent FIN\n");
                 entry->connstate = SERVER_ACCEPTED_FIN;
                 return NF_ACCEPT;
             }
             return NF_DROP;
         default:
-            printk("S->C default dropped %pI4:%u -> %pI4:%u state %d SYN: %d FIN: %d RST: %d\n", &iphead->saddr, htons(tcphead->source)
-                ,&iphead->daddr, htons(tcphead->dest), entry->connstate, tcphead->syn, tcphead->fin, tcphead->rst);
+            // printk("S->C default dropped %pI4:%u -> %pI4:%u state %d SYN: %d FIN: %d RST: %d\n", &iphead->saddr, htons(tcphead->source)
+            //     ,&iphead->daddr, htons(tcphead->dest), entry->connstate, tcphead->syn, tcphead->fin, tcphead->rst);
             return NF_DROP;
         }
     }
@@ -132,7 +132,7 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
         case HANDSHAKE_SYNACK_SENT:
             if (!tcphead->syn && !tcphead->fin)
             {
-                printk("Server completed handshake\n");
+                // printk("Server completed handshake\n");
                 entry->connstate = ESTABLISHED;
                 return NF_ACCEPT;
             }
@@ -140,22 +140,22 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
         case ESTABLISHED:
             if (!tcphead->syn && tcphead->fin)
             {
-                printk("Client initiated FIN\n");
+                // printk("Client initiated FIN\n");
                 entry->connstate = CLIENT_SENT_FIN;
             }
-            printk("Client->server conn packet\n");
+            // printk("Client->server conn packet\n");
             return NF_ACCEPT;
         case CLIENT_SENT_FIN:
             if (tcphead->fin)
             {
-                printk("Client resent FIN\n");
+                // printk("Client resent FIN\n");
                 return NF_ACCEPT;
             }
             return NF_DROP;
         case SERVER_ACCEPTED_FIN:
             if (!tcphead->syn && !tcphead->fin)
             {
-                printk("Second FIN Acknowledged, Removing connection\n");
+                // printk("Second FIN Acknowledged, Removing connection\n");
                 list_del(&entry->list);
                 kfree(entry);
                 conncount--;
@@ -163,7 +163,7 @@ unsigned int conn_filter(struct iphdr *iphead, struct tcphdr *tcphead)
             }
             return NF_DROP;
         default:
-            printk("C->S default dropped, SYN: %d FIN: %d RST: %d\n", tcphead->syn, tcphead->fin, tcphead->rst);
+            // printk("C->S default dropped, SYN: %d FIN: %d RST: %d\n", tcphead->syn, tcphead->fin, tcphead->rst);
             return NF_DROP;
         }
     }
@@ -180,9 +180,9 @@ void conn_add(__be32 sip, __be32 dip, __be16 sport, __be16 dport, connstate_t in
     newentry->connstate = initstate;
     INIT_LIST_HEAD(&newentry->list);
     list_add_tail(&newentry->list, &connlist);
-    printk("Added new TCP connection from %pI4 to %pI4\n", &newentry->cl_ip, &newentry->sv_ip);
+    // printk("Added new TCP connection from %pI4 to %pI4\n", &newentry->cl_ip, &newentry->sv_ip);
     conncount++;
-    printk("There are currently %u connections\n", conncount);
+    // printk("There are currently %u connections\n", conncount);
 }
 
 conn_entry *conn_get_raw(__be32 sip, __be16 sport, __be32 dip, __be16 dport)
@@ -225,11 +225,11 @@ ssize_t setmitm_iface(struct device *dev, struct device_attribute *attr,
     conn_entry *conn = conn_get_raw(mti->clip, mti->clport, mti->svip, mti->svport);
     if (conn == NULL)
     {
-        printk("Failed to update mitm\n");
+        // printk("Failed to update mitm\n");
         return 0;
     }
     conn->mitm_port = mti->mitmport;
-    printk("Updated mitm port %d\n", ntohs(conn->mitm_port));
+    // printk("Updated mitm port %d\n", ntohs(conn->mitm_port));
     return sizeof(struct mitm_input);
 }
 
@@ -237,11 +237,11 @@ ssize_t add_ftpport(struct device *dev, struct device_attribute *attr,
                     const char *buf, size_t count)
 {
     if (count != 2){
-        printk("Wrong count: %u\n", count);
+        // printk("Wrong count: %u\n", count);
         return 0;
     }
     if(ftpcount >= MAX_CONNS){
-        printk("Too many ftp connections\n");
+        // printk("Too many ftp connections\n");
         return 0;
     }
     
@@ -249,7 +249,7 @@ ssize_t add_ftpport(struct device *dev, struct device_attribute *attr,
     ftpports[ftpcount] = port;
     ftpcount++;
 
-    printk("\e[34mftp port %d added\e[m\n", ntohs(port));
+    // printk("\e[34mftp port %d added\e[m\n", ntohs(port));
     return 2;
 }
 
@@ -317,7 +317,7 @@ int create_conndev(void)
         unregister_chrdev(conndev_major, CONNDEV_NAME);
         return -1;
     }
-    printk("All devices created\n");
+    // printk("All devices created\n");
     return 0;
 }
 

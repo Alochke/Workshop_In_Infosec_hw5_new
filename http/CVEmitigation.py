@@ -11,6 +11,7 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 FORMAT = 'UTF-8'
 
 def escape(data: str):
+    print(data)
     returned = ""
     for c in data:
         # Escape special characters

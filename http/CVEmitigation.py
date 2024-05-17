@@ -95,7 +95,7 @@ while True:
                 inp = conn.recv(4096)            
                 if not inp: break
                 data += inp
-            # print(data)
+            print(data)
             conn.sendall(data)
             
 

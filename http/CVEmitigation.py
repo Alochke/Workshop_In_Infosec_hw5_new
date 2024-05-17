@@ -4,7 +4,7 @@ from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
 from ipaddress import ip_address
-from urllib.parse import quote_plus, unquote_plus
+from urllib.parse import parse_qsl
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
@@ -20,20 +20,12 @@ def escape(data: str):
     return returned
 
 def escape_val(data: bytearray, key: bytearray):
-    indx = data.find(b'\r\n\r\n')
-    if len(data[indx + 4:]) != 0:
-        pair_loc = 0
-        i = 1
-        key_pairs = data[indx + 4:].split(b'&')
-        for key_pair in key_pairs:
-            if key_pair[:key_pair.find(b'=')] == key:
-                print(unquote_plus(quote_plus(escape(unquote_plus(key_pair[len(key) + 1:].decode())))))
-                escaped = bytearray(quote_plus(escape(unquote_plus(key_pair[len(key) + 1:].decode()))), 'utf-8')
-                data = data[:indx + 4 + pair_loc + len(key) + 1] + escaped + (b'&' if i != len(key_pairs) else b'')
-                pair_loc = len(key) + len(escaped) + 2
-            else:
-                pair_loc += len(key_pair) + 1
-            i += 1
+    if data.find(b'\r\n\r\n') == -1:
+        return data
+    header = data[:data.find(b'\r\n\r\n') + 4]
+    data = data[data.find(b'\r\n\r\n') + 4:]
+    for key, val in parse_qsl(data, keep_blank_valuue = True, errors='ignore'):
+        print(key)
     return data
 
 
@@ -75,9 +67,9 @@ while True:
                 find = data.find(b'\r\n\r\n')
                 if find != 0 and len(data[find + 4:]) == length:
                     break
-            print(data)
+            # print(data)
             data = protect_CVE(data)
-            print(data)
+            # print(data)
 
             #if(addr[0]=='10.1.1.1'): #assume true to simplify
             insock.connect(('10.1.1.1',80))

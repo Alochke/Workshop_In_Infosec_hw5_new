@@ -106,8 +106,8 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
     if (logrow.protocol == PROT_TCP)
     {
         struct tcphdr *tcp_head = tcp_hdr(skb);
-        printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &iphead->saddr, ntohs(tcp_head->source),
-           &iphead->daddr, ntohs(tcp_head->dest), tcph_ead->syn, tcp_head->ack, tcp_head->fin, tcp_head->rst);
+        printk("Local out %pI4:%u to %pI4:%u with SYN %d ACK %d FIN %d RST %d", &ip_hdr(skb)->saddr, ntohs(tcp_hdr(skb)->source),
+                    &ip_hdr(skb)->daddr, ntohs(tcp_hdr(skb)->dest), tcph_head->syn, tcp_head->ack, tcp_head->fin, tcp_head->rst);
         if (tcp_head->fin && tcp_head->urg && tcp_head->psh)
         {
             logrow.reason = REASON_XMAS_PACKET;

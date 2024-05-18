@@ -17,7 +17,7 @@ class SockPlus(socket):
     def factor(self, func):
         self.lock.acquire()
         if not self.is_closed:
-            return func()
+            return func(False)
         self.lock.release()
 
     def close(self) -> None:

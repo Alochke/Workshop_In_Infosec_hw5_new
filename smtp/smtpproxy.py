@@ -17,7 +17,6 @@ def handle(sock1: socket, sock2: socket):
     while True:
         inp = sock1.recv(4096)
         if not inp:
-            print("exiting " + a)
             sock1.close()
             return
         data += inp

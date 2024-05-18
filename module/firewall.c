@@ -121,45 +121,47 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
         if (tcp_head->ack)
         {
             // Skip static rule checking
-            unsigned int conn_res = NF_DROP;
-            if (tcp_head->syn)
-            {
-                // printk("SYN-ACK\n");
-            }
+            unsigned int conn_res = NF_ACCEPT;
             if (interface == DIRECTION_OUT)
             {
-                
                 // c->f
                 if(tcp_head->source == ntohs(80))
                 {
                     // We already filter them on the way out
-                    add_proxy(FW_CLIENT_IP, 0, skb, false, false);
-                    return NF_ACCEPT;
+                    add_proxy(FW_CLIENT_IP, 0, skb, false, false);                    
                 }
-
-                conn_res = conn_filter(ip_head, tcp_head);
-                if (conn_res == NF_ACCEPT && tcp_head->dest == ntohs(80))
+                else if(tcp_head->dest == ntohs(80))
                 {
                     add_proxy(FW_CLIENT_IP, ntohs(800), skb, false, true);
                 }
-                else if (conn_res == NF_ACCEPT && tcp_head->dest == ntohs(21))
+                else if (tcp_head->dest == ntohs(21))
                 {
                     add_proxy(FW_CLIENT_IP, ntohs(210), skb, false, true);
+                }
+                else if (tcp_head->dest == ntohs(25))
+                {
+                    add_proxy(FW_CLIENT_IP, ntohs(205), skb, false, true);
+                }
+                else
+                {
+                    conn_res = conn_filter(ip_head, tcp_head);
                 }
             }
             else if (interface == DIRECTION_IN)
             {
                 // s->f
-                if (tcp_head->source == ntohs(80) || tcp_head->source == ntohs(21))
+                if (tcp_head->source == ntohs(80) || tcp_head->source == ntohs(21) || tcp_head->source == ntohs(25))
                 {
                     // We already filter them on the way out
                     add_proxy(FW_SERVER_IP, 0, skb, false, false);
-                    return NF_ACCEPT;
                 }
-                conn_res = conn_filter(ip_head, tcp_head);
-                if (conn_res == NF_ACCEPT && tcp_head->dest == ntohs(80))
+                else if (tcp_head->dest == ntohs(80))
                 {
                     add_proxy(FW_SERVER_IP, ntohs(15), skb, false, true);
+                
+                else
+                {
+                    conn_res = conn_filter(ip_head, tcp_head);
                 }
             }
 
@@ -167,8 +169,6 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
         }
         else if (tcp_head->syn)
         {            
-            // printk("SYN\n");
-
             bool isftp=false;
             for(size_t i=0;i<ftpcount;++i){
                 if(ftpports[i] == tcp_head->dest)
@@ -230,6 +230,10 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 {
                     add_proxy(FW_CLIENT_IP, ntohs(210), skb, false, true);
                 }
+                else if (tcp_head->dest == ntohs(25))
+                {
+                    add_proxy(FW_CLIENT_IP, ntohs(205), skb, false, true);
+                }
             }
             else if(interface == DIRECTION_IN)
             {
@@ -274,6 +278,8 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
             add_proxy(SERVER_IP, htons(80), skb, true, true);
         else if (tcphead->source == htons(210))
             add_proxy(SERVER_IP, htons(21), skb, true, true);
+        else if (tcp->source == htons(205))
+            add_proxy(SERVER_IP, htons(25), skb, true, true);
         else
             add_proxy(SERVER_IP, 0, skb, true, false);
 

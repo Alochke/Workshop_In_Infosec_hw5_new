@@ -56,6 +56,6 @@ while True:
                                 break
                     outsock.sendall(data2)
 
-                    if not data1 and not data2:
+                    if not data1 or not data2:
                         break
 

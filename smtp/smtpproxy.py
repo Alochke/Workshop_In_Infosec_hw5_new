@@ -37,20 +37,22 @@ while True:
                     conn.sendall(data1)
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
-                        flag = False
+                        flag = True
                         data2 = bytearray()
                         while True:
                             print('receiving data.')
-                            inp = conn.recv(4096)            
+                            inp = conn.recv(4096)
+                            data2 += inp
                             if (not inp) or (data2.endswith(b'.\r\n') and flag) or data2.endswith(b'\r\n.\r\n'): 
                                 break
-                            data2 += inp
+                            flag = False
                     else:
                         data2 = bytearray()
                         while True:
                             print('receiving command.')
-                            inp = conn.recv(4096)            
-                            if not inp or data2.endswith(b'\r\n'): 
+                            inp = conn.recv(4096)
+                            data2 += inp 
+                            if (not inp) or data2.endswith(b'\r\n'): 
                                 break
                     conn.sendall(data2)
 

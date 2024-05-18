@@ -20,13 +20,13 @@ while True:
         conn, addr = insock.accept()
         print('connection established from '+str(addr))
         with conn:
-            flag = False
-            length = 0
             while True:
                 print('receiving request')
                 inp = conn.recv(4096)            
                 if not inp: break
                 data += inp
+                if data.endswith(b'\r\n'):
+                    break
 
             # print(data) # for debug
 

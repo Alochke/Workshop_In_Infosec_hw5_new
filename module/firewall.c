@@ -158,7 +158,7 @@ unsigned int route_hook(void *priv, struct sk_buff *skb,
                 else if (tcp_head->dest == ntohs(80))
                 {
                     add_proxy(FW_SERVER_IP, ntohs(15), skb, false, true);
-                
+                }
                 else
                 {
                     conn_res = conn_filter(ip_head, tcp_head);
@@ -278,7 +278,7 @@ unsigned int localout_hook(void *priv, struct sk_buff *skb,
             add_proxy(SERVER_IP, htons(80), skb, true, true);
         else if (tcphead->source == htons(210))
             add_proxy(SERVER_IP, htons(21), skb, true, true);
-        else if (tcp->source == htons(205))
+        else if (tcphead->source == htons(205))
             add_proxy(SERVER_IP, htons(25), skb, true, true);
         else
             add_proxy(SERVER_IP, 0, skb, true, false);

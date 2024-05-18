@@ -8,20 +8,6 @@ from ipaddress import ip_address
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
 
-def is_socket_closed(sock: socket) -> bool:
-    try:
-        # this will try to read bytes without blocking and also without removing them from buffer (peek only)
-        data = sock.recv(16, socket.MSG_DONTWAIT | socket.MSG_PEEK)
-        if len(data) == 0:
-            return True
-    except BlockingIOError:
-        return False  # socket is open and reading from it would block
-    except ConnectionResetError:
-        return True  # socket was closed for some other reason
-    except Exception as e:
-        return False
-    return False
-
     
 while True:
     with socket(AF_INET, SOCK_STREAM) as insock:
@@ -43,6 +29,7 @@ while True:
                 data1, data2 = bytearray(), bytearray()
                 while True:
                     data1 = bytearray()
+                    inp = bytearray()
                     while True:
                         print('receiving response.')
                         inp = outsock.recv(4096)            
@@ -51,9 +38,7 @@ while True:
                             break
                     conn.sendall(data1)
 
-                    print(data1)
-
-                    if is_socket_closed(outsock):
+                    if not inp:
                         break
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
@@ -76,6 +61,5 @@ while True:
                                 break
                     outsock.sendall(data2)
 
-                    if is_socket_closed(conn):
+                    if not inp:
                         break
-

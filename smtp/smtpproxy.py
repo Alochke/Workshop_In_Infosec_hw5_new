@@ -13,8 +13,8 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 
 def handle(sock1: socket, sock2: socket):
     print('Started request thread')
-    data = bytearray()
     while True:
+        data = bytearray()
         while True:
             inp = sock1.recv(4096)
             if not inp:

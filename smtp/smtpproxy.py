@@ -8,14 +8,6 @@ from ipaddress import ip_address
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
 
-def is_socket_connected(sock):
-    try:
-        # This will raise an error if the socket is not connected
-        sock.getpeername()
-        return True
-    except socket.error:
-        return False
-
 
 while True:
     with socket(AF_INET, SOCK_STREAM) as insock:
@@ -46,7 +38,7 @@ while True:
                             break
                     conn.sendall(data1)
 
-                    if not is_socket_connected(outsock):
+                    if data1.lstrip().startswith(b'221') or (not inp):
                         break
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
@@ -69,5 +61,5 @@ while True:
                                 break
                     outsock.sendall(data2)
 
-                    if not is_socket_connected(conn):
+                    if not inp:
                         break

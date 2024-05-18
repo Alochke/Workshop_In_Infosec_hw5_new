@@ -16,9 +16,13 @@ def handle(sock1: socket, sock2: socket):
     while True:
         data = bytearray()
         while True:
-            inp = sock1.recv(4096)
+            try:
+                inp = sock1.recv(4096)
+            except:
+                ...
             if not inp:
                 sock1.close()
+                sock2.close()
                 return
             data += inp
             if data.endswith(b'\r\n'): break # FTP command termination

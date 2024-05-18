@@ -1,1 +1,1 @@
-print(b'    GFDSGFD     '.strip().lower())
+print(b''[:-2])

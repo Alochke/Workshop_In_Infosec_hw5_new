@@ -80,14 +80,13 @@ while True:
                 print('receiving response header')
                 inp = outsock.recv(4096)            
                 if not inp: 
-                    outsock.recv(4096)
                     break
                 data += inp
             if(not has_wrong_type(data)):
                 conn.sendall(data)
             else:
                 print('\nProhibited type!\n')
-            # print(data)
+            print(data)
             
 
     outsock.close()

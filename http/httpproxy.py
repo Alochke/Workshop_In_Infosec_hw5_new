@@ -8,7 +8,6 @@ import guesslang
 
 MITM_STRUCT = '!LHLHH'
 MITM_SIZE = calcsize(MITM_STRUCT)
-FORMAT = 'UTF-8'
 
 def has_wrong_type(data):
     header = data.split(b'\r\n\r\n')[0]
@@ -20,7 +19,7 @@ def has_wrong_type(data):
 
 def has_C_code(data: bytearray):
     indx = data.find(b'\r\n\r\n')
-    if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(FORMAT))['C'] > 1e-9:
+    if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode('UTF-8'))['C'] > 1e-9:
         return True
     return False
 

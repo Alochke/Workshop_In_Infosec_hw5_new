@@ -51,6 +51,8 @@ while True:
                             break
                     conn.sendall(data1)
 
+                    print(data1)
+
                     if is_socket_closed(outsock):
                         break
 

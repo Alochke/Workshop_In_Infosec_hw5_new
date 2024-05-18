@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from _typeshed import ReadableBuffer
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize

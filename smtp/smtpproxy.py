@@ -40,7 +40,7 @@ def handle(sock1: SockPlus, sock2: SockPlus):
             data += inp
             if data.endswith(b'\r\n'): break # FTP command termination
 
-        sock2.factor(lambda x: sock2.socket.sendall())
+        sock2.factor(lambda x: sock2.socket.sendall(data))
 
 
 with socket(AF_INET, SOCK_STREAM) as insock:

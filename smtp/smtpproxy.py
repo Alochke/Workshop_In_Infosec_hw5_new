@@ -14,7 +14,7 @@ class SockPlus(socket):
     is_closed = False
 
 
-    def factor(self, func: function):
+    def factor(self, func):
         self.lock.acquire()
         if not self.is_closed:
             return func()

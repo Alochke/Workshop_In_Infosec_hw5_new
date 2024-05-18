@@ -47,7 +47,8 @@ while True:
                     if indx != -1:
                         while data[indx:].find(b'\r\n') == -1:
                             inp = conn.recv(4096)            
-                            if not inp: break
+                            if not inp: 
+                                break
                             data += inp
                         length = int(data[indx + 16 : indx + data[indx:].find(b'\r\n')].decode('UTF-8'))
                         flag = True
@@ -78,7 +79,9 @@ while True:
             while True:
                 print('receiving response header')
                 inp = outsock.recv(4096)            
-                if not inp: break
+                if not inp: 
+                    outsock.recv(4096)
+                    break
                 data += inp
             if(not has_wrong_type(data)):
                 conn.sendall(data)

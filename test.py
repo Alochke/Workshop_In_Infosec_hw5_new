@@ -1,1 +1,1 @@
-lambda x: print('hello')
+print(b'    GFDSGFD     '.strip().lower())

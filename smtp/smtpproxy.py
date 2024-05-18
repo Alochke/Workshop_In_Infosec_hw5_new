@@ -54,7 +54,7 @@ while True:
                             data2 += inp 
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
-                    conn.sendall(data2)
+                    outsock.sendall(data2)
 
                     if not data1 and not data2:
                         break

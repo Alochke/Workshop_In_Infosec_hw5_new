@@ -15,12 +15,14 @@ def handle(sock1: socket, sock2: socket):
     print('Started request thread')
     data = bytearray()
     while True:
-        inp = sock1.recv(4096)
-        if not inp:
-            sock1.close()
-            return
-        data += inp
-        if data.endswith(b'\r\n'): break # FTP command termination
+        while True:
+            inp = sock1.recv(4096)
+            if not inp:
+                sock1.close()
+                return
+            data += inp
+            if data.endswith(b'\r\n'): break # FTP command termination
+
 
         try:
             sock2.sendall(data)

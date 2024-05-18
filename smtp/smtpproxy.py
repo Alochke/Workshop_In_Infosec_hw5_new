@@ -19,7 +19,8 @@ def handle(sock1: socket, sock2: socket):
             try:
                 inp = sock1.recv(4096)
             except:
-                ...
+                sock1.close()
+                sock2.close()
             if not inp:
                 sock1.close()
                 sock2.close()

@@ -32,7 +32,7 @@ while True:
                         print('receiving response.')
                         inp = outsock.recv(4096)            
                         data1 += inp
-                        if not inp or data1.endswith(b'\r\n'): 
+                        if (not inp) or data1.endswith(b'\r\n'): 
                             break
                     conn.sendall(data1)
 
@@ -42,7 +42,7 @@ while True:
                         while True:
                             print('receiving data.')
                             inp = conn.recv(4096)            
-                            if not inp or (data2.endswith(b'.\r\n') and flag) or data2.endswith(b'\r\n.\r\n'): 
+                            if (not inp) or (data2.endswith(b'.\r\n') and flag) or data2.endswith(b'\r\n.\r\n'): 
                                 break
                             data2 += inp
                     else:

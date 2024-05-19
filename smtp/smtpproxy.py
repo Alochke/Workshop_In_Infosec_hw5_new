@@ -71,7 +71,7 @@ while True:
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
                     print(data2)
-                    if inp and has_C_code(data2):
+                    if has_C_code(data2):
                         print(b"C code detected.")
                         try:
                             conn.sendall(b'C code has been sent, terminating connection.')

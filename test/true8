@@ -1,10 +1,3 @@
-Person 1: Hey, could you take a look at this C code I've been working on? I'm getting some strange syntax errors and I can't seem to pinpoint what's wrong.
-
-Person 2: Sure, let me see the code.
-
-Person 1: Here's what I've got:
-
-c
 
 #include <stdio.h>
 
@@ -20,13 +13,6 @@ int main() {
     return 0;
 }
 
-Person 2: Alright, let's take a look... Ah, I see the issue. You're missing a semicolon after the line z = x + y.
-
-Person 1: Oh, right. I forgot about that. Thanks for catching it.
-
-Person 1 (after modification):
-
-c
 
 #include <stdio.h>
 
@@ -41,9 +27,3 @@ int main() {
     
     return 0;
 }
-
-Person 2: Perfect, that should fix the syntax error. Anything else giving you trouble?
-
-Person 1: Not at the moment, but thanks for your help. It's always good to have someone to bounce ideas off of.
-
-Person 2: Absolutely, happy to help. Let me know if you run into any more issues.

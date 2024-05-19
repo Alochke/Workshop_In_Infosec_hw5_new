@@ -1,12 +1,3 @@
-Sophia: Hey, Alex! How's your C coding journey going?
-
-Alex: Hey, Sophia! It's been quite the ride. I keep stumbling upon syntax errors, and it's driving me nuts!
-
-Sophia: Ah, syntax errors can be a real pain. Mind showing me the code you're working on?
-
-Alex: Of course! Here's a snippet:
-
-c
 
 #include <stdio.h>
 
@@ -16,11 +7,6 @@ int main()
     return 0;
 }
 
-Sophia: I see a couple of issues here. First, you're missing a semicolon at the end of the printf statement. Second, you've forgotten to include <stdlib.h> for the return statement.
-
-Alex: Oh, right! Let me fix that.
-
-c
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,9 +16,3 @@ int main()
     printf("Hello, world!\n");
     return 0;
 }
-
-Sophia: There you go! Now your code should compile without any syntax errors.
-
-Alex: Thanks a bunch, Sophia! It's incredible how such minor mistakes can cause such frustration.
-
-Sophia: Absolutely! Programming can be like solving a puzzle sometimes. Don't hesitate to reach out if you need any more help. I'm here for you!

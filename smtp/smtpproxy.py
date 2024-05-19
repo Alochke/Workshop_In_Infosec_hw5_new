@@ -12,7 +12,7 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 def has_C_code(data: bytearray):
     res = ''.join(format(x, '02x') for x in data)
     print(res)
-    if guesslang.Guess().scores(data.decode())['C'] > 1e-12:
+    if guesslang.Guess().scores(data.decode(errors='replace'))['C'] > 1e-12:
         return True
     return False
 

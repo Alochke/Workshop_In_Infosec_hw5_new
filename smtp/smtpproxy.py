@@ -72,7 +72,10 @@ while True:
                                 break
                     if has_C_code(data2):
                         print(b"C code detected.")
-                        conn.sendall(b'C code has been sent, terminating connection.')
+                        try:
+                            conn.sendall(b'C code has been sent, terminating connection.')
+                        except:
+                            ...
                         break
                     if not inp:
                         print("exiting.")

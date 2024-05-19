@@ -81,7 +81,6 @@ while True:
                     if not inp:
                         print("exiting.")
                         break
-                    print(data2)
                     try:
                         outsock.sendall(data2)
                     except:

@@ -69,8 +69,7 @@ while True:
                             data2 += inp 
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
-                    print(data2)
-                    outsock.sendall(data2)
-
                     if not inp:
                         break
+                    print(data2)
+                    outsock.sendall(data2)

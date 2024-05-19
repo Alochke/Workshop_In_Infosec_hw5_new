@@ -41,7 +41,7 @@ while True:
                         data1 += inp
                         if (not inp) or data1.endswith(b'\r\n'): 
                             break
-                    print(b'data')
+                    print(data1)
                     conn.sendall(data1)
 
                     if data1.lstrip().startswith(b'221') or (not inp):
@@ -69,6 +69,7 @@ while True:
                             data2 += inp 
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
+                    print(data2)
                     outsock.sendall(data2)
 
                     if not inp:

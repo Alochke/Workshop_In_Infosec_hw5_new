@@ -74,6 +74,7 @@ while True:
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
                     if not inp:
+                        print("exiting.")
                         break
                     print(data2)
                     try:

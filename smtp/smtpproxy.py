@@ -41,11 +41,11 @@ while True:
                         data1 += inp
                         if (not inp) or data1.endswith(b'\r\n'): 
                             break
-                    print(data1)
-                    conn.sendall(data1)
 
                     if data1.lstrip().startswith(b'221') or (not inp):
                         break
+                    print(data1)
+                    conn.sendall(data1)
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
                         # Getting mail content.

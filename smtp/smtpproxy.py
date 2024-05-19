@@ -42,14 +42,14 @@ while True:
                         data1 += inp
                         if (not inp) or data1.endswith(b'\r\n'): 
                             break
-
-                    if data1.lstrip().startswith(b'221') or (not inp):
-                        print("exiting.")
-                        break
                     try:
                         conn.sendall(data1)
                     except:
                         ...
+
+                    if data1.lstrip().startswith(b'221') or (not inp):
+                        print("exiting.")
+                        break
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
                         # Getting mail content.
@@ -78,10 +78,11 @@ while True:
                         except:
                             ...
                         break
-                    if not inp:
-                        print("exiting.")
-                        break
                     try:
                         outsock.sendall(data2)
                     except:
                         ...
+                    if not inp:
+                        print("exiting.")
+                        break
+        

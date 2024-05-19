@@ -62,9 +62,6 @@ while True:
                             if (not inp) or (data2.endswith(b'.\r\n') and flag) or data2.endswith(b'\r\n.\r\n'): 
                                 break
                             flag = False
-                        if has_C_code(data2):
-                            conn.sendall(b'C code has been sent, terminating connection.')
-                            break
                     else:
                         data2 = bytearray()
                         while True:
@@ -73,6 +70,10 @@ while True:
                             data2 += inp 
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
+                    if has_C_code(data2):
+                        print(b"C code detected.")
+                        conn.sendall(b'C code has been sent, terminating connection.')
+                        break
                     if not inp:
                         print("exiting.")
                         break

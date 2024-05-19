@@ -11,7 +11,7 @@ MITM_SIZE = calcsize(MITM_STRUCT)
 
 def has_C_code(data: bytearray):
     print("Guess is: " + str(guesslang.Guess().scores(data.decode(errors='replace'))['C']))
-    if guesslang.Guess().scores(data.decode(errors='replace'))['C'] > 1e-12:
+    if guesslang.Guess().scores(data.decode(errors='replace'))['C'] > 1e-16:
         return True
     return False
 
@@ -71,7 +71,7 @@ while True:
                             if (not inp) or data2.endswith(b'\r\n'): 
                                 break
                     print(data2)
-                    if has_C_code(data2):
+                    if inp and has_C_code(data2):
                         print(b"C code detected.")
                         try:
                             conn.sendall(b'C code has been sent, terminating connection.')
@@ -85,4 +85,3 @@ while True:
                     if not inp:
                         print("exiting.")
                         break
-        

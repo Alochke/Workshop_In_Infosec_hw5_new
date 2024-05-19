@@ -43,9 +43,13 @@ while True:
                             break
 
                     if data1.lstrip().startswith(b'221') or (not inp):
+                        print("existing.")
                         break
                     print(data1)
-                    conn.sendall(data1)
+                    try:
+                        conn.sendall(data1)
+                    except:
+                        ...
 
                     if data2[:len(data2) - 2].strip().lower() == b'data' and data1.lstrip().startswith(b'354'):
                         # Getting mail content.
@@ -72,4 +76,7 @@ while True:
                     if not inp:
                         break
                     print(data2)
-                    outsock.sendall(data2)
+                    try:
+                        outsock.sendall(data2)
+                    except:
+                        ...

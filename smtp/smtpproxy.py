@@ -43,7 +43,7 @@ while True:
                             break
 
                     if data1.lstrip().startswith(b'221') or (not inp):
-                        print("existing.")
+                        print("exiting.")
                         break
                     print(data1)
                     try:

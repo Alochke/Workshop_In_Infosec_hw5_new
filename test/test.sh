@@ -4,5 +4,5 @@ echo "helo idk
 mail from: idk
 rcpt to: root
 data
-$(cat $1)
+hello
 ." |telnet 10.1.2.2 25

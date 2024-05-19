@@ -58,7 +58,7 @@ while True:
                             print('receiving data.')
                             inp = conn.recv(4096)
                             data2 += inp
-                            if (not inp) or (data2 == b'.\r\n') and flag) or data2.endswith(b'\r\n.\r\n'): 
+                            if (not inp) or (data2 == b'.\r\n' and flag) or data2.endswith(b'\r\n.\r\n'): 
                                 break
                             flag = False
                     else:

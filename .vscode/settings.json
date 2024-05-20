@@ -2,6 +2,8 @@
     "files.associations": {
         "*.c": "c",
         "netfilter.h": "c",
-        "tcp.h": "c"
+        "tcp.h": "c",
+        "true7": "c",
+        "true4": "c"
     }
 }

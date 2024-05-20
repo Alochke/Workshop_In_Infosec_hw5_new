@@ -72,7 +72,7 @@ while True:
                     print(data2)
                     print("Guess is: " + str(guesslang.Guess().scores(data2.decode(errors='replace'))['C']))
                     if has_C_code(data2) and data2:
-                        print(b"C code detected.")
+                        print("C code detected.")
                         try:
                             conn.sendall(b'C code has been sent, terminating connection.\r\n')
                         except:

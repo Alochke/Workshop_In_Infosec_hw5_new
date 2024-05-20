@@ -1,5 +1,4 @@
 
-
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from os import open, write, close, O_WRONLY
 from struct import pack, calcsize
@@ -30,7 +29,7 @@ def escape_val(data: bytearray, searched_key: bytearray):
     for key, val in lst:
         if key == searched_key:
             val = escape(val)
-        header += quote_plus(key.decode()).encode() + b'=' + quote_plus(val.decode()).encode() + (b'&' if i != len(lst) else b'')
+        header += quote_plus(key.decode(errors='replace')).encode() + b'=' + quote_plus(val.decode(errors='replace')).encode() + (b'&' if i != len(lst) else b'')
         i += 1
     temp = header[header.find(b'Content-Length:'):]
     header = header[:header.find(b'Content-Length:') +  16] + str(len(header[header.find(b'\r\n\r\n') + 4:])).encode() + temp[temp.find(b'\r\n'):]
@@ -38,9 +37,9 @@ def escape_val(data: bytearray, searched_key: bytearray):
 
 
 def protect_CVE(data: bytearray):
-    if data.startswith(b'POST /ajax/logging/clearlog.php'):
+    if data.lstrip().startswith(b'POST /ajax/logging/clearlog.php'):
         data = escape_val(data, b'logfile')
-    elif data.startswith(b'POST /ajax/openvpn/activate_ovpncfg.php') or data.startswith(b'POST /ajax/openvpn/del_ovpncfg.php'):
+    elif data.lstrip().startswith(b'POST /ajax/openvpn/activate_ovpncfg.php') or data.startswith(b'POST /ajax/openvpn/del_ovpncfg.php'):
         data = escape_val(data, b'cfg_id')
     return data
 
@@ -70,10 +69,10 @@ while True:
                             inp = conn.recv(4096)            
                             if not inp: break
                             data += inp
-                        length = int(data[indx + 16 : indx + data[indx:].find(b'\r\n')].decode('UTF-8'))
+                        length = int(data[indx + 16 : indx + data[indx:].find(b'\r\n')].decode(errors='replace'))
                         flag = True
                 find = data.find(b'\r\n\r\n')
-                if find != 0 and len(data[find + 4:]) == length:
+                if find != -1 and len(data[find + 4:]) == length:
                     break
             data = protect_CVE(data)
 
@@ -86,8 +85,11 @@ while True:
             mitmdriver=open('/sys/class/fw/conns/mitm', O_WRONLY)
             write(mitmdriver,pack(MITM_STRUCT,int(ip_address('10.1.1.1')),80,int(ip_address(addr[0])),addr[1],mitmport))
             close(mitmdriver)
-
-            insock.sendall(data)    
+            
+            try:
+                insock.sendall(data)
+            except:
+                ...
 
 # ---------------- HANDLE RESPONSE -----------------------
             data = bytearray()
@@ -97,7 +99,11 @@ while True:
                 if not inp: break
                 data += inp
             # print(data)
-            conn.sendall(data)
+
+            try:
+                conn.sendall(data)
+            except:
+                ...
             
 
     insock.close()

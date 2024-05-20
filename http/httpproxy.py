@@ -19,7 +19,7 @@ def has_wrong_type(data):
 
 def has_C_code(data: bytearray):
     indx = data.find(b'\r\n\r\n')
-    if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode('UTF-8'))['C'] > 1e-9:
+    if len(data[indx + 4:]) != 0 and guesslang.Guess().scores(data[indx + 4:].decode(errors='replace'))['C'] > 1e-9:
         return True
     return False
 
@@ -50,10 +50,10 @@ while True:
                             if not inp: 
                                 break
                             data += inp
-                        length = int(data[indx + 16 : indx + data[indx:].find(b'\r\n')].decode('UTF-8'))
+                        length = int(data[indx + 16 : indx + data[indx:].find(b'\r\n')].decode(errors='replace'))
                         flag = True
                 find = data.find(b'\r\n\r\n')
-                if find != 0 and len(data[find + 4:]) == length:
+                if find != -1 and len(data[find + 4:]) == length:
                     break
 
             # print(data) # for debug

@@ -19,7 +19,7 @@ else:
     target_port = sys.argv[2]
     
 
-    endpoint = "/ajax/openvpn/activate_ovpncfg.php"
+    endpoint = "ajax/openvpn/del_ovpncfg.php"
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
     while(True):

